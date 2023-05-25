@@ -18,7 +18,7 @@ public class Houkai extends PApplet {
     public static final int HEIGHT = 720;
 
     // sprite pixel size
-    public static final int SPRITESIZE = 20;
+    public static final int SPRITE_SIZE = 20;
     
     // Health bar
     public static final int TOPBAR = 80;
