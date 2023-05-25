@@ -14,23 +14,23 @@ import processing.core.*;
 public class Houkai extends PApplet {
     
     // resolution
-    public static final int WIDTH = 1280;
-    public static final int HEIGHT = 720;
+    private static final int WIDTH = 1280;
+    private static final int HEIGHT = 720;
 
     // sprite pixel size
-    public static final int SPRITE_SIZE = 20;
+    private static final int SPRITE_SIZE = 20;
     
     // Health bar
-    public static final int TOPBAR = 80;
+    private static final int TOPBAR = 80;
     
     // FPS Values
-    public static final int FPS = 60;
+    private static final int FPS = 60;
     
     // Assets
-    public PImage bg;
-    public PImage title;
+    private PImage bg;
+    private PImage title;
 
-    public InputStream in;
+    private InputStream in;
     
     /**
      * @param args the command line arguments
