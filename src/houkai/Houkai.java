@@ -32,6 +32,14 @@ public class Houkai extends PApplet {
 
     private InputStream in;
     
+    public void settings() {
+        size(WIDTH,HEIGHT);
+    }
+    
+    public void setup() {
+        frameRate(FPS);
+    }
+    
     /**
      * @param args the command line arguments
      */
