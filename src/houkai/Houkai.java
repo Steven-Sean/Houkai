@@ -4,7 +4,6 @@
  */
 package houkai;
 
-import processing.core.*;
 import javax.swing.JFrame;
 
 /**
@@ -12,15 +11,13 @@ import javax.swing.JFrame;
  * @author Steven
  */
 
-public class Houkai extends PApplet {
+public class Houkai {
     
     /**
      * @param args the command line arguments
      */
     
     public static void main(String[] args) {
-        PApplet.main("houkai.Houkai");
-        
         JFrame window = new JFrame();
     
         //--> Untuk memungkinkan jendela menutup dengan benar ketika pengguna mengklik tombol tutup ("x").
