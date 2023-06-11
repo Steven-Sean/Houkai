@@ -4,47 +4,38 @@
  */
 package houkai;
 
-import java.io.InputStream;
 import processing.core.*;
+import javax.swing.JFrame;
 
 /**
  *
  * @author Steven
  */
+
 public class Houkai extends PApplet {
-
-    // resolution
-    private static final int WIDTH = 1280;
-    private static final int HEIGHT = 720;
-
-    // sprite pixel size
-    private static final int SPRITE_SIZE = 20;
-
-    // Health bar
-    private static final int TOPBAR = 80;
-
-    // FPS Values
-    private static final int FPS = 60;
-
-    // Assets
-    private PImage bg;
-    private PImage title;
-
-    private InputStream in;
-
-    public void settings() {
-        size(WIDTH, HEIGHT);
-    }
-
-    public void setup() {
-        frameRate(FPS);
-    }
-
+    
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String[] args) {
         PApplet.main("houkai.Houkai");
+        
+        JFrame window = new JFrame();
+    
+        //--> Untuk memungkinkan jendela menutup dengan benar ketika pengguna mengklik tombol tutup ("x").
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false); //--> Untuk menetapkan frame agar ukuran framenya tidak dapat diubah
+        window.setTitle("Houkai"); //--> judul game
+        
+        GamePanel gamePanel = new GamePanel();
+        window.add(gamePanel);
+        window.pack();
+        
+        window.setLocationRelativeTo(null); //--> untuk menampilkan Jendela yg akan ditampilkan di tengah layar
+        window.setVisible(true);
+    
+        gamePanel.startGameThread();
     }
 
 }
