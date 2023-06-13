@@ -13,14 +13,15 @@ import object.OBJ_key; // ini untuk item key
  * @author TOSHIBA
  */
 public class AssetSetter {
+
     GamePanel gp;
-    
-    public AssetSetter(GamePanel gp){
+
+    public AssetSetter(GamePanel gp) {
         this.gp = gp;
     }
-    
-    public void setObject () {
-        
+
+    public void setObject() {
+
         // kalau array diatur 10 maka item yg bisa ditampilkan bisa sampai 10, kalau terlalu banyak membuat game lambat
 //        gp.obj[0] = new OBJ_key();
 //        gp.obj[0].worldX = 520 * 3;
@@ -29,7 +30,7 @@ public class AssetSetter {
         gp.obj[1] = new OBJ_key();
         gp.obj[1].worldX = 595 * 3;
         gp.obj[1].worldY = 735 * 3; // item ke 2
-        
+
 //        gp.obj[2] = new OBJ_door();
 //        gp.obj[2].worldX = 43 * gp.tileSize;
 //        gp.obj[2].worldY = 9 * gp.tileSize; // item ke 3

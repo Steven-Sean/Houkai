@@ -12,11 +12,12 @@ import javax.imageio.ImageIO;
  * @author TOSHIBA
  */
 public class OBJ_door extends superObject {
-      public OBJ_door(){
+
+    public OBJ_door() {
         name = "door";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/tiles/door_left.png")); // untuk memuat gambar
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         coliision = true;
