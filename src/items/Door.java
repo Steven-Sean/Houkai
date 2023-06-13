@@ -20,6 +20,6 @@ public class Door extends Items {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        coliision = true;
+        collision = true;
     }
 }

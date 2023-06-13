@@ -16,14 +16,14 @@ import javax.imageio.ImageIO;     //--> Untuk membaca gambar dari file atau menu
  *
  * @author AsuS
  */
-public class TileManager {
+public final class TileManager {
 
-    GamePanel gp;
+    GamePanel gamePanel;
     public Tile[] tile;
     public int mapTileNum[][];
 
     public TileManager(GamePanel gp) {
-        this.gp = gp;
+        this.gamePanel = gp;
         tile = new Tile[20];
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
@@ -125,28 +125,27 @@ public class TileManager {
 
     public void loadMap(String filePath) {
         try {
-            InputStream is = getClass().getResourceAsStream(filePath);
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
-            int col = 0;
-            int row = 0;
-
-            //--> Untuk pengecekan agar tidak ada data diluar batas map.txt
-            while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
-                String line = br.readLine(); // --> Untuk membaca data 1 baris saja dalam bentuk String 
-
-                while (col < gp.maxWorldCol) {
-                    String numbers[] = line.split(" "); //--> Untuk memisahkan line menjadi 1/1 dan dimasukkan ke array
-                    int num = Integer.parseInt(numbers[col]); //--> Untuk mengubah String ke Int
-                    mapTileNum[col][row] = num; //--> index = col & row
-                    col++;
-                }
-                if (col == gp.maxWorldCol) {
-                    col = 0;
-                    row++;
+            InputStream inputStream = getClass().getResourceAsStream(filePath);
+            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+                int col = 0;
+                int row = 0;
+                
+                //--> Untuk pengecekan agar tidak ada data diluar batas map.txt
+                while (col < gamePanel.maxWorldCol && row < gamePanel.maxWorldRow) {
+                    String line = bufferedReader.readLine(); // --> Untuk membaca data 1 baris saja dalam bentuk String
+                    
+                    while (col < gamePanel.maxWorldCol) {
+                        String numbers[] = line.split(" "); //--> Untuk memisahkan line menjadi 1/1 dan dimasukkan ke array
+                        int num = Integer.parseInt(numbers[col]); //--> Untuk mengubah String ke Int
+                        mapTileNum[col][row] = num; //--> index = col & row
+                        col++;
+                    }
+                    if (col == gamePanel.maxWorldCol) {
+                        col = 0;
+                        row++;
+                    }
                 }
             }
-            br.close();
         } catch (Exception e) {
 
         }
@@ -157,27 +156,27 @@ public class TileManager {
         int worldCol = 0;
         int worldRow = 0;
 
-        while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
+        while (worldCol < gamePanel.maxWorldCol && worldRow < gamePanel.maxWorldRow) {
             int tileNum = mapTileNum[worldCol][worldRow]; //--> Untuk mengubah num menjadi map dan akan dimasukkan ke array mapTileNum
 
             //--> Untuk player agar berada pada posisi tengah dan menampilkan map sesuai ukuran screen 
-            int worldX = worldCol * gp.tileSize;
-            int worldY = worldRow * gp.tileSize;
-            int screenX = worldX - gp.player.worldX + gp.player.screenX;
-            int screenY = worldY - gp.player.worldY + gp.player.screenY;
+            int worldX = worldCol * gamePanel.tileSize;
+            int worldY = worldRow * gamePanel.tileSize;
+            int screenX = worldX - gamePanel.player.getWorldX() + gamePanel.player.screenX;
+            int screenY = worldY - gamePanel.player.getWorldY() + gamePanel.player.screenY;
 
             //--> berfungsi untuk menggambar tiles disekitar player saja jadi tidak melebihi screen
-            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX
-                    && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
-                    && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
-                    && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+            if (worldX + gamePanel.tileSize > gamePanel.player.getWorldX() - gamePanel.player.screenX
+                    && worldX - gamePanel.tileSize < gamePanel.player.getWorldX() + gamePanel.player.screenX
+                    && worldY + gamePanel.tileSize > gamePanel.player.getWorldY() - gamePanel.player.screenY
+                    && worldY - gamePanel.tileSize < gamePanel.player.getWorldY() + gamePanel.player.screenY) {
 
                 //--> Untuk Mencetak Gambar Map 
-                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+                g2.drawImage(tile[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
             }
             worldCol++;
 
-            if (worldCol == gp.maxWorldCol) {
+            if (worldCol == gamePanel.maxWorldCol) {
                 worldCol = 0;
                 worldRow++;
             }

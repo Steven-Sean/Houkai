@@ -37,27 +37,27 @@ public class GamePanel extends JPanel implements Runnable {
 
     //--> Untuk setting FPS
     int FPS = 60;
-    TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
+    TileManager tileManager = new TileManager(this);
+    KeyHandler keyHandler = new KeyHandler();
     Sound sound = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
-    public AssetSetter aSetter = new AssetSetter(this);
+    public AssetSetter assetSetter = new AssetSetter(this);
     Thread gameThread;
 
     // untuk entity dan objek
-    public Player player = new Player(this, keyH);
-    public Items obj[] = new Items[15]; // contohnya kalau 10 kita bisa nampilin 10 objek sekaligus, terlalu banyak bisa bikin ngelag
+    public Player player = new Player(this, keyHandler);
+    public Items[] items = new Items[15]; // contohnya kalau 10 kita bisa nampilin 10 objek sekaligus, terlalu banyak bisa bikin ngelag
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(new Color(6, 1, 31)); //--> Untuk background diluar tile
         this.setDoubleBuffered(true);
-        this.addKeyListener(keyH); //--> Untuk mengenali inputan
+        this.addKeyListener(keyHandler); //--> Untuk mengenali inputan
         this.setFocusable(true);
     }
 
     public void setupGame() {
-        aSetter.setObject();
+        assetSetter.setObject();
         //PlayMusic(0);
     }
 
@@ -102,18 +102,19 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         //--> Untuk mengonversi Graphics ke class graphics 2D
         //--> Untuk fungsi Graphics2D class extends Graphics class untuk memberikan kontrol yang lebih canggih atas
         //    geometri, transformasi koordinat, manajemen warna, dan tata letak teks.
         Graphics2D g2 = (Graphics2D) g;
-        tileM.draw(g2);  //--> (Tile) pastikan kita draw tile dulu lalu player
-
+        tileManager.draw(g2);  //--> (Tile) pastikan kita draw tile dulu lalu player
         // OBJECT
-        for (int i = 0; i < obj.length; i++) {  // untuk meneruskan graphics2D
-            if (obj[i] != null) {
-                obj[i].draw(g2, this);
+        for (Items obj1 : items) {
+            // untuk meneruskan graphics2D
+            if (obj1 != null) {
+                obj1.draw(g2, this);
             }
         }
 
