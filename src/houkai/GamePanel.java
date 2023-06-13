@@ -11,12 +11,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
+import object.superObject;
 
 /**
  *
  * @author AsuS
  */
-
 public class GamePanel extends JPanel implements Runnable{
     //--> Untuk screen setting
     final int originalTileSize = 16; //16x16
@@ -38,10 +38,14 @@ public class GamePanel extends JPanel implements Runnable{
     int FPS = 60;
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
-    Thread gameThread;
+    Sound sound = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
-    public Player player = new Player(this,keyH);
+    public AssetSetter aSetter = new AssetSetter(this);
+    Thread gameThread;
        
+    // untuk entity dan objek
+    public Player player = new Player(this,keyH);
+    public superObject obj[] = new superObject[15]; // contohnya kalau 10 kita bisa nampilin 10 objek sekaligus, terlalu banyak bisa bikin ngelag
     
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -51,6 +55,11 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true);
     }
 
+    public void setupGame (){
+        aSetter.setObject();
+        //PlayMusic(0);
+    }
+    
     public void startGameThread(){
         gameThread = new Thread(this);
         gameThread.start();
@@ -98,8 +107,32 @@ public class GamePanel extends JPanel implements Runnable{
         //--> Untuk fungsi Graphics2D class extends Graphics class untuk memberikan kontrol yang lebih canggih atas
         //    geometri, transformasi koordinat, manajemen warna, dan tata letak teks.
         Graphics2D g2 = (Graphics2D)g;
-        tileM.draw(g2); //pastikan kita draw tile dulu lalu player
-        player.draw(g2);
+        tileM.draw(g2);  //--> (Tile) pastikan kita draw tile dulu lalu player
+        
+        // OBJECT
+        for (int i = 0; i < obj.length; i++){  // untuk meneruskan graphics2D
+            if (obj[i] != null){
+                obj [i].draw(g2, this);
+            }
+        }
+        
+        player.draw(g2); //--> (Player)
         g2.dispose();
+    }
+    
+    // untuk memutar musik
+    public void PlayMusic(int i){ 
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    // untuk memberhentikan musik
+    public void StopMusic(){      
+        sound.stop();
+    }
+    //untuk sound efect dan tidak perlu loop karna cmn 1kali
+    public void PlaySE(int i){ 
+        sound.setFile(i);
+        sound.play();
     }
 }

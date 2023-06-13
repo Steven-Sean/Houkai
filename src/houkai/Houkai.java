@@ -10,13 +10,7 @@ import javax.swing.JFrame;
  *
  * @author Steven
  */
-
-public class Houkai {
-    
-    /**
-     * @param args the command line arguments
-     */
-    
+public class Houkai { 
     public static void main(String[] args) {
         JFrame window = new JFrame();
     
@@ -32,7 +26,7 @@ public class Houkai {
         window.setLocationRelativeTo(null); //--> untuk menampilkan Jendela yg akan ditampilkan di tengah layar
         window.setVisible(true);
     
+        gamePanel.setupGame();
         gamePanel.startGameThread();
     }
-
 }
