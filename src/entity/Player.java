@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;        //--> Untuk membaca gambar dari file atau m
  */
 public final class Player extends Entity {
 
-    GamePanel gp;
+    GamePanel gamePanel;
     KeyHandler keyH;
 
     //--> Untuk menempatkan karakter pemain ditengah layar dan mengikuti latar belakang saat bergerak
@@ -26,11 +26,11 @@ public final class Player extends Entity {
     public final int screenY;
 
     // untuk menunjukkan berapa kunci yg dimiliki pemain saat ini
-    int haskey = 0;
+    int keyCount = 0;
 
     //Constructor Player
     public Player(GamePanel gp, KeyHandler keyH) {
-        this.gp = gp;
+        this.gamePanel = gp;
         this.keyH = keyH;
 
         //--> Untuk mengembalikan titik tengah layar
@@ -91,10 +91,10 @@ public final class Player extends Entity {
 
             //--> Untuk memeriksa / mengecek tabrakan pada ubin
             setCollisionOn(false);
-            gp.cChecker.checkTile(this);
+            gamePanel.cChecker.checkTile(this);
 
             // untuk memeriksa tabrakan pada objek
-            int objIndex = gp.cChecker.checkObject(this, true);
+            int objIndex = gamePanel.cChecker.checkObject(this, true);
             pickUpObject(objIndex);
 
             //--> untuk pengecekan jika Collision == false maka player dapat gerak dan sebaliknya
@@ -122,28 +122,29 @@ public final class Player extends Entity {
 
     public void pickUpObject(int i) {
         if (i != 999) { // kalau index bukan 999 maka kita telah menyentuh suatu object
-            String objectName = gp.obj[i].name;
+            String objectName = gamePanel.items[i].name;
 
             switch (objectName) {
                 case "key" -> {
                     //gp.PlaySE(2);
-                    haskey++;
-                    gp.obj[i] = null;
-                    System.out.println("Key:" + haskey); // untuk mengetahui berapa key skrg
+                    keyCount++;
+                    gamePanel.items[i] = null;
+                    System.out.println("Key:" + keyCount); // untuk mengetahui berapa key skrg
                 }
                 case "door" -> {
-                    if (haskey > 0) {
+                    if (keyCount > 0) {
                         //gp.PlaySE(2);
-                        gp.obj[i] = null;
-                        haskey--;
+                        gamePanel.items[i] = null;
+                        keyCount--;
                     }
-                    System.out.println("Key:" + haskey);
+                    System.out.println("Key:" + keyCount);
                 }
                 case "boots" -> {
-                    gp.PlaySE(1);
+                    gamePanel.PlaySE(1);
                     setSpeed(getSpeed() + 2); // jika dapat sepatu maka kecepatan akan bertambah
-                    gp.obj[i] = null;
+                    gamePanel.items[i] = null;
                 }
+
             }
         }
     }
@@ -164,7 +165,7 @@ public final class Player extends Entity {
         }
 
         //--> Untuk mencetak gambar pada frame
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 
 }

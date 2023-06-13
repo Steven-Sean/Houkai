@@ -17,7 +17,7 @@ public class Items { // ini jadi class induk dari segala segala class objek
 
     public BufferedImage image;
     public String name;
-    public boolean coliision = false;
+    public boolean collision = false;
     public int worldX, worldY;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48); // agar objek menjadi solid area atau seluruh petak objeknya padat
     public int solidAreaDefaultX = 0;
