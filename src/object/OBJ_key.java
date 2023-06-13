@@ -12,14 +12,13 @@ import javax.imageio.ImageIO;
  * @author TOSHIBA
  */
 public class OBJ_key extends superObject { // class ini untuk memperluas superobject dan konstraktor
-    public OBJ_key(){        
+
+    public OBJ_key() {
         name = "key";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/tiles/chest_1.png")); // untuk memuat gambar
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
-    
-

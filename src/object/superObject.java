@@ -14,25 +14,26 @@ import java.awt.image.BufferedImage;
  * @author TOSHIBA
  */
 public class superObject { // ini jadi class induk dari segala segala class objek
-    public BufferedImage image ;
+
+    public BufferedImage image;
     public String name;
-    public boolean coliision = false ;
+    public boolean coliision = false;
     public int worldX, worldY;
-    public Rectangle solidArea = new Rectangle (0,0,48,48); // agar objek menjadi solid area atau seluruh petak objeknya padat
+    public Rectangle solidArea = new Rectangle(0, 0, 48, 48); // agar objek menjadi solid area atau seluruh petak objeknya padat
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
 
-    public void draw(Graphics2D g2, GamePanel gp){ // untuk menggambat
+    public void draw(Graphics2D g2, GamePanel gp) { // untuk menggambat
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
-        int screenY = worldY - gp.player.worldY + gp.player.screenY ;
-            //--> berfungsi untuk menggambar tiles disekitar player saja jadi tidak melebihi screen
-            if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && 
-               worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-               worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-               worldY - gp.tileSize < gp.player.worldY + gp.player.screenY){
-                
-                //--> Untuk Mencetak Gambar Map 
-                g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-            }
+        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+        //--> berfungsi untuk menggambar tiles disekitar player saja jadi tidak melebihi screen
+        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX
+                && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
+                && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
+                && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+
+            //--> Untuk Mencetak Gambar Map 
+            g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        }
     }
 }

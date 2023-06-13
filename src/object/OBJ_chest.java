@@ -12,11 +12,12 @@ import javax.imageio.ImageIO;
  * @author TOSHIBA
  */
 public class OBJ_chest extends superObject {
-      public OBJ_chest(){
+
+    public OBJ_chest() {
         name = "chest";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/tiles/chest_1.png")); // untuk memuat gambar                    
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
