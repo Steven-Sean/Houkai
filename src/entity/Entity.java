@@ -17,7 +17,10 @@ public class Entity {
     int worldY;
     int speed;
 
-    public BufferedImage up1, up2, up3, down1, down2, down3, left1, left2, left3, right1, right2, right3;
+    public BufferedImage[] up = new BufferedImage[3], 
+            down = new BufferedImage[3], 
+            left = new BufferedImage[3], 
+            right = new BufferedImage[3];
     String direction;
 
     int spriteCounter = 0;

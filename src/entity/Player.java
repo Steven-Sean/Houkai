@@ -63,18 +63,13 @@ public class Player extends Entity {
     //--> Untuk dijadikan sprite player saat bergerak
     public void getPlayerImage() {
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/nu_up_01.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/nu_up_02.png"));
-            up3 = ImageIO.read(getClass().getResourceAsStream("/player/nu_up_03.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/nu_down_01.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/nu_down_02.png"));
-            down3 = ImageIO.read(getClass().getResourceAsStream("/player/nu_down_03.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/nu_left_01.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/nu_left_02.png"));
-            left3 = ImageIO.read(getClass().getResourceAsStream("/player/nu_left_03.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/nu_right_01.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/nu_right_02.png"));
-            right3 = ImageIO.read(getClass().getResourceAsStream("/player/nu_right_03.png"));
+            String resourcePath = "/player/nu_";
+            for (int i = 0; i < 3; i++) {
+                up[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"up_0" + (i+1) + ".png"));
+                down[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"down_0" + (i+1) + ".png"));
+                left[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"left_0" + (i+1) + ".png"));
+                right[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"right_0" + (i+1) + ".png"));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -167,48 +162,16 @@ public class Player extends Entity {
 
         switch (getDirection()) {
             case "up": //key W
-                if (spriteNum == 1) {
-                    image = up1;
-                }
-                if (spriteNum == 2) {
-                    image = up2;
-                }
-                if (spriteNum == 3) {
-                    image = up3;
-                }
+                image = up[getSpriteNum()];
                 break;
             case "down": //Key S
-                if (spriteNum == 1) {
-                    image = down1;
-                }
-                if (spriteNum == 2) {
-                    image = down2;
-                }
-                if (spriteNum == 3) {
-                    image = down3;
-                }
+                image = down[getSpriteNum()];
                 break;
             case "left": //Key A
-                if (spriteNum == 1) {
-                    image = left1;
-                }
-                if (spriteNum == 2) {
-                    image = left2;
-                }
-                if (spriteNum == 3) {
-                    image = left3;
-                }
+                image = left[getSpriteNum()];
                 break;
             case "right": //Key D
-                if (spriteNum == 1) {
-                    image = right1;
-                }
-                if (spriteNum == 2) {
-                    image = right2;
-                }
-                if (spriteNum == 3) {
-                    image = right3;
-                }
+                image = right[getSpriteNum()];
                 break;
         }
 
