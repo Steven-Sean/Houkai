@@ -5,6 +5,7 @@
 package houkai;
 
 import entity.Entity;
+import items.Items;
 
 /**
  *
@@ -37,7 +38,7 @@ public class CollisionChecker {
 
         //--> Untuk memeriksa arah entity mau kemana
         switch (entity.getDirection()) {
-            case "up":
+            case "up" -> {
                 entityTopRow = (entityTopWorldY - entity.getSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
@@ -46,99 +47,98 @@ public class CollisionChecker {
                 if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
                     entity.setCollisionOn(true);
                 }
-                break;
+            }
 
-            case "down":
+            case "down" -> {
                 entityBottomRow = (entityBottomWorldY + entity.getSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
                 tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
                 if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
                     entity.setCollisionOn(true);
                 }
-                break;
-            case "left":
+            }
+            case "left" -> {
                 entityLeftCol = (entityLeftWorldX + entity.getSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
                 if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
                     entity.setCollisionOn(true);
                 }
-                break;
-            case "right":
+            }
+            case "right" -> {
                 entityRightCol = (entityRightWorldX - entity.getSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
                 tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
                 if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
                     entity.setCollisionOn(true);
                 }
-                break;
+            }
         }
     }
 
     public int checkObject(Entity entity, boolean player) {
         int index = 999;
 
-        for (int i = 0; i < gp.obj.length; i++) {
-            if (gp.obj[i] != null) {
-
+        for (Items obj : gp.obj) {
+            if (obj != null) {
                 // untuk mendapatkan entity petaknya padat
                 entity.getSolidArea().x = entity.getWorldX() + entity.getSolidArea().x;
                 entity.getSolidArea().y = entity.getWorldY() + entity.getSolidArea().y;
-
                 // untuk mendapatkan object petaknya padat
-                gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
-                gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
-
-                switch (entity.getDirection()) { // untuk menentukan arah entity / entitas
-                    case "up":
+                obj.solidArea.x = obj.worldX + obj.solidArea.x;
+                obj.solidArea.y = obj.worldY + obj.solidArea.y;
+                switch (entity.getDirection()) {
+                    case "up" -> {
                         entity.getSolidArea().y = entity.getSolidArea().y - entity.getSpeed();
-                        if (entity.getSolidArea().intersects(gp.obj[i].solidArea)) { // untuk memberi tanda jika entity tabrakan
-                            if (gp.obj[i].coliision == true) {
+                        if (entity.getSolidArea().intersects(obj.solidArea)) {
+                            // untuk memberi tanda jika entity tabrakan
+                            if (obj.coliision == true) {
                                 entity.setCollisionOn(true);
                             }
                             if (player == true) {
                                 index = 1;
                             }
                         }
-                        break;
-                    case "down":
+                    }
+                    case "down" -> {
                         entity.getSolidArea().y = entity.getSolidArea().y + entity.getSpeed();
-                        if (entity.getSolidArea().intersects(gp.obj[i].solidArea)) {
-                            if (gp.obj[i].coliision == true) {
+                        if (entity.getSolidArea().intersects(obj.solidArea)) {
+                            if (obj.coliision == true) {
                                 entity.setCollisionOn(true);
                             }
                             if (player == true) {
                                 index = 1;
                             }
                         }
-                        break;
-                    case "left":
+                    }
+                    case "left" -> {
                         entity.getSolidArea().x = entity.getSolidArea().x - entity.getSpeed();
-                        if (entity.getSolidArea().intersects(gp.obj[i].solidArea)) {
-                            if (gp.obj[i].coliision == true) {
+                        if (entity.getSolidArea().intersects(obj.solidArea)) {
+                            if (obj.coliision == true) {
                                 entity.setCollisionOn(true);
                             }
                             if (player == true) {
                                 index = 1;
                             }
                         }
-                        break;
-                    case "right":
+                    }
+                    case "right" -> {
                         entity.getSolidArea().x = entity.getSolidArea().x + entity.getSpeed();
-                        if (entity.getSolidArea().intersects(gp.obj[i].solidArea)) {
-                            if (gp.obj[i].coliision == true) {
+                        if (entity.getSolidArea().intersects(obj.solidArea)) {
+                            if (obj.coliision == true) {
                                 entity.setCollisionOn(true);
                             }
                             if (player == true) {
                                 index = 1;
                             }
                         }
-                        break;
+                    }
                 }
+                // untuk menentukan arah entity / entitas
                 entity.getSolidArea().x = entity.getSolidAreaDefaultX();
                 entity.getSolidArea().y = entity.getSolidAreaDefaultY();
-                gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
-                gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
+                obj.solidArea.x = obj.solidAreaDefaultX;
+                obj.solidArea.y = obj.solidAreaDefaultY;
             }
         }
         return index;

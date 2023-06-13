@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;        //--> Untuk membaca gambar dari file atau m
  *
  * @author AsuS
  */
-public class Player extends Entity {
+public final class Player extends Entity {
 
     GamePanel gp;
     KeyHandler keyH;
@@ -100,18 +100,10 @@ public class Player extends Entity {
             //--> untuk pengecekan jika Collision == false maka player dapat gerak dan sebaliknya
             if (isCollisionOn() == false) {
                 switch (getDirection()) {
-                    case "up":
-                        setWorldY(getWorldY() - getSpeed()); //key W
-                        break;
-                    case "down":
-                        setWorldY(getWorldY() + getSpeed()); //key S
-                        break;
-                    case "left":
-                        setWorldX(getWorldX() - getSpeed()); //key A
-                        break;
-                    case "right":
-                        setWorldX(getWorldX() + getSpeed()); //key D
-                        break;
+                    case "up" -> setWorldY(getWorldY() - getSpeed()); //key W
+                    case "down" -> setWorldY(getWorldY() + getSpeed()); //key S
+                    case "left" -> setWorldX(getWorldX() - getSpeed()); //key A
+                    case "right" -> setWorldX(getWorldX() + getSpeed()); //key D
                 }
             }
             setSpriteCounter(getSpriteCounter() + 1);
@@ -133,25 +125,25 @@ public class Player extends Entity {
             String objectName = gp.obj[i].name;
 
             switch (objectName) {
-                case "key":
+                case "key" -> {
                     //gp.PlaySE(2);
                     haskey++;
                     gp.obj[i] = null;
                     System.out.println("Key:" + haskey); // untuk mengetahui berapa key skrg
-                    break;
-                case "door":
+                }
+                case "door" -> {
                     if (haskey > 0) {
                         //gp.PlaySE(2);
                         gp.obj[i] = null;
                         haskey--;
                     }
                     System.out.println("Key:" + haskey);
-                    break;
-                case "boots":
+                }
+                case "boots" -> {
                     gp.PlaySE(1);
                     setSpeed(getSpeed() + 2); // jika dapat sepatu maka kecepatan akan bertambah
                     gp.obj[i] = null;
-                    break;
+                }
             }
         }
     }
@@ -161,18 +153,14 @@ public class Player extends Entity {
         BufferedImage image = null;
 
         switch (getDirection()) {
-            case "up": //key W
+            case "up" -> //key W
                 image = getUp()[getSpriteNum()];
-                break;
-            case "down": //Key S
+            case "down" -> //Key S
                 image = getDown()[getSpriteNum()];
-                break;
-            case "left": //Key A
+            case "left" -> //Key A
                 image = getLeft()[getSpriteNum()];
-                break;
-            case "right": //Key D
+            case "right" -> //Key D
                 image = getRight()[getSpriteNum()];
-                break;
         }
 
         //--> Untuk mencetak gambar pada frame

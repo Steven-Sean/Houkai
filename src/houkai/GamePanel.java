@@ -102,6 +102,7 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         //--> Untuk mengonversi Graphics ke class graphics 2D
@@ -109,11 +110,11 @@ public class GamePanel extends JPanel implements Runnable {
         //    geometri, transformasi koordinat, manajemen warna, dan tata letak teks.
         Graphics2D g2 = (Graphics2D) g;
         tileM.draw(g2);  //--> (Tile) pastikan kita draw tile dulu lalu player
-
         // OBJECT
-        for (int i = 0; i < obj.length; i++) {  // untuk meneruskan graphics2D
-            if (obj[i] != null) {
-                obj[i].draw(g2, this);
+        for (Items obj1 : obj) {
+            // untuk meneruskan graphics2D
+            if (obj1 != null) {
+                obj1.draw(g2, this);
             }
         }
 
