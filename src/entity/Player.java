@@ -47,10 +47,12 @@ public class Player extends Entity {
     
     //Untuk dijadikan posisi awal player
     public void setDefaultValue(){
-        worldX = gp.tileSize * 23;
-        worldY = gp.tileSize * 21;
+        //worldX = gp.tileSize * 23;
+        //worldY = gp.tileSize * 21;
+        worldX = 520 * 3;
+        worldY = 740 * 3;
         speed = 4;
-        direction = "down";
+        direction = "up";
     }
     
     //--> Untuk dijadikan sprite player saat bergerak
