@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package object;
+package items;
 
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -11,9 +11,9 @@ import javax.imageio.ImageIO;
  *
  * @author TOSHIBA
  */
-public class OBJ_door extends superObject {
+public class Door extends Items {
 
-    public OBJ_door() {
+    public Door() {
         name = "door";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/tiles/door_left.png")); // untuk memuat gambar
