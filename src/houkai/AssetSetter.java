@@ -23,28 +23,28 @@ public class AssetSetter {
     public void setObject() {
 
         // kalau array diatur 10 maka item yg bisa ditampilkan bisa sampai 10, kalau terlalu banyak membuat game lambat
-        gp.obj[0] = new Key();
-        gp.obj[0].worldX = 520 * 3;
-        gp.obj[0].worldY = 720 * 3; // item ke 1
+//        gp.obj[0] = new Key();
+//        gp.obj[0].worldX = 520 * 3;
+//        gp.obj[0].worldY = 720 * 3; // item ke 1
         
         gp.obj[1] = new Key();
         gp.obj[1].worldX = 595 * 3;
         gp.obj[1].worldY = 735 * 3; // item ke 2
 
-        gp.obj[2] = new Door();
-        gp.obj[2].worldX = 43 * gp.tileSize;
-        gp.obj[2].worldY = 9 * gp.tileSize; // item ke 3
+//        gp.obj[2] = new Door();
+//        gp.obj[2].worldX = 43 * gp.tileSize;
+//        gp.obj[2].worldY = 9 * gp.tileSize; // item ke 3
+//        
+//        gp.obj[3] = new Door();
+//        gp.obj[3].worldX = 2 * gp.tileSize;
+//        gp.obj[3].worldY = 22 * gp.tileSize; // item ke 4
         
-        gp.obj[3] = new Door();
-        gp.obj[3].worldX = 2 * gp.tileSize;
-        gp.obj[3].worldY = 22 * gp.tileSize; // item ke 4
-        
-        gp.obj[4] = new Chest();
-        gp.obj[4].worldX = 33 * gp.tileSize;
-        gp.obj[4].worldY = 9 * gp.tileSize; // item ke 5
-        
-        gp.obj[5] = new Chest();
-        gp.obj[5].worldX = 28 * gp.tileSize;
-        gp.obj[5].worldY = 4 * gp.tileSize; // item ke 6    
+//        gp.obj[4] = new Chest();
+//        gp.obj[4].worldX = 33 * gp.tileSize;
+//        gp.obj[4].worldY = 9 * gp.tileSize; // item ke 5
+//        
+//        gp.obj[5] = new Chest();
+//        gp.obj[5].worldX = 28 * gp.tileSize;
+//        gp.obj[5].worldY = 4 * gp.tileSize; // item ke 6    
     }
 }
