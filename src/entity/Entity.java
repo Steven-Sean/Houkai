@@ -17,10 +17,10 @@ public class Entity {
     int worldY;
     int speed;
 
-    public BufferedImage[] up = new BufferedImage[3], 
-            down = new BufferedImage[3], 
-            left = new BufferedImage[3], 
-            right = new BufferedImage[3];
+    BufferedImage[] up = new BufferedImage[3];
+    BufferedImage[] down = new BufferedImage[3];
+    BufferedImage[] left = new BufferedImage[3];
+    BufferedImage[] right = new BufferedImage[3];
     String direction;
 
     int spriteCounter = 0;
@@ -170,5 +170,61 @@ public class Entity {
      */
     public void setCollisionOn(boolean collisionOn) {
         this.collisionOn = collisionOn;
+    }
+
+    /**
+     * @return the up
+     */
+    public BufferedImage[] getUp() {
+        return up;
+    }
+
+    /**
+     * @param up the up to set
+     */
+    public void setUp(BufferedImage[] up) {
+        this.up = up;
+    }
+
+    /**
+     * @return the down
+     */
+    public BufferedImage[] getDown() {
+        return down;
+    }
+
+    /**
+     * @param down the down to set
+     */
+    public void setDown(BufferedImage[] down) {
+        this.down = down;
+    }
+
+    /**
+     * @return the left
+     */
+    public BufferedImage[] getLeft() {
+        return left;
+    }
+
+    /**
+     * @param left the left to set
+     */
+    public void setLeft(BufferedImage[] left) {
+        this.left = left;
+    }
+
+    /**
+     * @return the right
+     */
+    public BufferedImage[] getRight() {
+        return right;
+    }
+
+    /**
+     * @param right the right to set
+     */
+    public void setRight(BufferedImage[] right) {
+        this.right = right;
     }
 }

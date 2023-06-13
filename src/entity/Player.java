@@ -65,10 +65,10 @@ public class Player extends Entity {
         try {
             String resourcePath = "/player/nu_";
             for (int i = 0; i < 3; i++) {
-                up[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"up_0" + (i+1) + ".png"));
-                down[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"down_0" + (i+1) + ".png"));
-                left[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"left_0" + (i+1) + ".png"));
-                right[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"right_0" + (i+1) + ".png"));
+                getUp()[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"up_0" + (i+1) + ".png"));
+                getDown()[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"down_0" + (i+1) + ".png"));
+                getLeft()[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"left_0" + (i+1) + ".png"));
+                getRight()[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"right_0" + (i+1) + ".png"));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -162,16 +162,16 @@ public class Player extends Entity {
 
         switch (getDirection()) {
             case "up": //key W
-                image = up[getSpriteNum()];
+                image = getUp()[getSpriteNum()];
                 break;
             case "down": //Key S
-                image = down[getSpriteNum()];
+                image = getDown()[getSpriteNum()];
                 break;
             case "left": //Key A
-                image = left[getSpriteNum()];
+                image = getLeft()[getSpriteNum()];
                 break;
             case "right": //Key D
-                image = right[getSpriteNum()];
+                image = getRight()[getSpriteNum()];
                 break;
         }
 

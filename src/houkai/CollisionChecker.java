@@ -82,8 +82,8 @@ public class CollisionChecker {
             if (gp.obj[i] != null) {
 
                 // untuk mendapatkan entity petaknya padat
-                entity.solidArea.x = entity.getWorldX() + entity.getSolidArea().x;
-                entity.solidArea.y = entity.getWorldY() + entity.getSolidArea().y;
+                entity.getSolidArea().x = entity.getWorldX() + entity.getSolidArea().x;
+                entity.getSolidArea().y = entity.getWorldY() + entity.getSolidArea().y;
 
                 // untuk mendapatkan object petaknya padat
                 gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
@@ -91,7 +91,7 @@ public class CollisionChecker {
 
                 switch (entity.getDirection()) { // untuk menentukan arah entity / entitas
                     case "up":
-                        entity.solidArea.y = entity.getSolidArea().y - entity.getSpeed();
+                        entity.getSolidArea().y = entity.getSolidArea().y - entity.getSpeed();
                         if (entity.getSolidArea().intersects(gp.obj[i].solidArea)) { // untuk memberi tanda jika entity tabrakan
                             if (gp.obj[i].coliision == true) {
                                 entity.setCollisionOn(true);
@@ -102,7 +102,7 @@ public class CollisionChecker {
                         }
                         break;
                     case "down":
-                        entity.solidArea.y = entity.getSolidArea().y + entity.getSpeed();
+                        entity.getSolidArea().y = entity.getSolidArea().y + entity.getSpeed();
                         if (entity.getSolidArea().intersects(gp.obj[i].solidArea)) {
                             if (gp.obj[i].coliision == true) {
                                 entity.setCollisionOn(true);
@@ -113,7 +113,7 @@ public class CollisionChecker {
                         }
                         break;
                     case "left":
-                        entity.solidArea.x = entity.getSolidArea().x - entity.getSpeed();
+                        entity.getSolidArea().x = entity.getSolidArea().x - entity.getSpeed();
                         if (entity.getSolidArea().intersects(gp.obj[i].solidArea)) {
                             if (gp.obj[i].coliision == true) {
                                 entity.setCollisionOn(true);
@@ -124,7 +124,7 @@ public class CollisionChecker {
                         }
                         break;
                     case "right":
-                        entity.solidArea.x = entity.getSolidArea().x + entity.getSpeed();
+                        entity.getSolidArea().x = entity.getSolidArea().x + entity.getSpeed();
                         if (entity.getSolidArea().intersects(gp.obj[i].solidArea)) {
                             if (gp.obj[i].coliision == true) {
                                 entity.setCollisionOn(true);
@@ -135,8 +135,8 @@ public class CollisionChecker {
                         }
                         break;
                 }
-                entity.solidArea.x = entity.getSolidAreaDefaultX();
-                entity.solidArea.y = entity.getSolidAreaDefaultY();
+                entity.getSolidArea().x = entity.getSolidAreaDefaultX();
+                entity.getSolidArea().y = entity.getSolidAreaDefaultY();
                 gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
                 gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
             }
