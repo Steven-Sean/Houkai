@@ -11,7 +11,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
-import object.superObject;
+import items.Items;
 
 /**
  *
@@ -46,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // untuk entity dan objek
     public Player player = new Player(this, keyH);
-    public superObject obj[] = new superObject[15]; // contohnya kalau 10 kita bisa nampilin 10 objek sekaligus, terlalu banyak bisa bikin ngelag
+    public Items obj[] = new Items[15]; // contohnya kalau 10 kita bisa nampilin 10 objek sekaligus, terlalu banyak bisa bikin ngelag
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
