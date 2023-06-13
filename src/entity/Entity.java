@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
  *
  * @author AsuS
  */
-
 public class Entity {
     public int worldX, worldY;
     public int speed;
@@ -24,7 +23,6 @@ public class Entity {
     
     //--> Untuk kelas ini kita dapat membuat persegi panjang yg tak terlihat
     public Rectangle solidArea; 
+    public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
-    
-    
 }

@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package houkai.tile;
 
 import houkai.GamePanel;          //--> Mengatur tampilan dan perilaku permainan.
@@ -17,7 +16,6 @@ import javax.imageio.ImageIO;     //--> Untuk membaca gambar dari file atau menu
  *
  * @author AsuS
  */
-
 public class TileManager {
     GamePanel gp;
     public Tile[] tile;
@@ -34,7 +32,7 @@ public class TileManager {
     //--> Untuk Mengambil gambar
     public void getTileImage(){
         try{
-           //===== Road =====
+           // ===== Road =====
            tile[0] = new Tile();
            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/road_1.png"));
            
@@ -46,7 +44,7 @@ public class TileManager {
            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/road_3.png"));
            tile[2].collision = true; 
         
-           //===== Base Map =====
+           // ===== Base Map =====
            tile[3] = new Tile();
            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/map.png"));
            tile[3].collision = true; //--> Untuk petak yg tidak bisa tabrak atau di tembus
@@ -133,7 +131,7 @@ public class TileManager {
             int col = 0;
             int row = 0;
             
-            //Untuk pengecekan agar tidak ada data diluar batas map.txt
+            //--> Untuk pengecekan agar tidak ada data diluar batas map.txt
             while(col < gp.maxWorldCol && row < gp.maxWorldRow){
                 String line = br.readLine(); // --> Untuk membaca data 1 baris saja dalam bentuk String 
                 

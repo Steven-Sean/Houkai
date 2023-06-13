@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;        //--> Untuk membaca gambar dari file atau m
  *
  * @author AsuS
  */
-
 public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
@@ -24,6 +23,9 @@ public class Player extends Entity {
     //--> Untuk menempatkan karakter pemain ditengah layar dan mengikuti latar belakang saat bergerak
     public final int screenX;
     public final int screenY;
+    
+    // untuk menunjukkan berapa kunci yg dimiliki pemain saat ini
+    int haskey = 0;
 
     //Constructor Player
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -41,16 +43,18 @@ public class Player extends Entity {
         solidArea.width = 32;
         solidArea.height = 32;
         
+        // untuk merekam nilai default 
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        
         setDefaultValue();
         getPlayerImage();
     }
     
-    //Untuk dijadikan posisi awal player
+    //--> Untuk dijadikan posisi awal player
     public void setDefaultValue(){
-        //worldX = gp.tileSize * 23;
-        //worldY = gp.tileSize * 21;
         worldX = 520 * 3;
-        worldY = 740 * 3;
+        worldY = 760 * 3;
         speed = 4;
         direction = "up";
     }
@@ -93,6 +97,10 @@ public class Player extends Entity {
             collisionOn = false;
             gp.cChecker.checkTile(this);
             
+            // untuk memeriksa tabrakan pada objek
+            int objIndex = gp.cChecker.checkObject(this,true);
+            pickUpObject(objIndex);
+            
             //--> untuk pengecekan jika Collision == false maka player dapat gerak dan sebaliknya
             if(collisionOn == false){
                 switch (direction) {
@@ -120,6 +128,34 @@ public class Player extends Entity {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+        }
+    }
+    
+    public void pickUpObject (int i){
+        if (i!=999){ // kalau index bukan 999 maka kita telah menyentuh suatu object
+            String objectName = gp.obj[i].name;
+            
+            switch (objectName){
+                case "key":
+                    //gp.PlaySE(2);
+                    haskey ++;
+                    gp.obj[i] = null ;
+                    System.out.println("Key:" + haskey); // untuk mengetahui berapa key skrg
+                    break;
+                case "door":
+                    if (haskey>0){
+                        //gp.PlaySE(2);
+                        gp.obj[i] = null ;
+                        haskey --;
+                    }
+                    System.out.println("Key:" + haskey); 
+                    break;
+                case "boots":
+                    gp.PlaySE(1);
+                    speed = speed + 2; // jika dapat sepatu maka kecepatan akan bertambah
+                    gp.obj[i] = null;
+                    break;
             }
         }
     }
