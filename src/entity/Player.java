@@ -54,10 +54,10 @@ public class Player extends Entity {
 
     //--> Untuk dijadikan posisi awal player
     public void setDefaultValue() {
-        worldX = 520 * 3;
-        worldY = 760 * 3;
-        speed = 4;
-        direction = "up";
+        setWorldX(520 * 3);
+        setWorldY(760 * 3);
+        setSpeed(4);
+        setDirection("up");
     }
 
     //--> Untuk dijadikan sprite player saat bergerak
@@ -85,17 +85,17 @@ public class Player extends Entity {
         if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed) {
             //--> Untuk setiap penekanan key maka akan menambah / mengurang 4 pixel
             if (keyH.upPressed == true) {
-                direction = "up";
+                setDirection("up");
             } else if (keyH.downPressed == true) {
-                direction = "down";
+                setDirection("down");
             } else if (keyH.leftPressed == true) {
-                direction = "left";
+                setDirection("left");
             } else if (keyH.rightPressed == true) {
-                direction = "right";
+                setDirection("right");
             }
 
             //--> Untuk memeriksa / mengecek tabrakan pada ubin
-            collisionOn = false;
+            setCollisionOn(false);
             gp.cChecker.checkTile(this);
 
             // untuk memeriksa tabrakan pada objek
@@ -103,32 +103,32 @@ public class Player extends Entity {
             pickUpObject(objIndex);
 
             //--> untuk pengecekan jika Collision == false maka player dapat gerak dan sebaliknya
-            if (collisionOn == false) {
-                switch (direction) {
+            if (isCollisionOn() == false) {
+                switch (getDirection()) {
                     case "up":
-                        worldY -= speed; //key W
+                        setWorldY(getWorldY() - getSpeed()); //key W
                         break;
                     case "down":
-                        worldY += speed; //key S
+                        setWorldY(getWorldY() + getSpeed()); //key S
                         break;
                     case "left":
-                        worldX -= speed; //key A
+                        setWorldX(getWorldX() - getSpeed()); //key A
                         break;
                     case "right":
-                        worldX += speed; //key D
+                        setWorldX(getWorldX() + getSpeed()); //key D
                         break;
                 }
             }
-            spriteCounter++;
+            setSpriteCounter(getSpriteCounter() + 1);
 
             //--> Untuk mengatur kecepatan sprite 
-            if (spriteCounter > 12) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
+            if (getSpriteCounter() > 12) {
+                if (getSpriteNum() == 1) {
+                    setSpriteNum(2);
+                } else if (getSpriteNum() == 2) {
+                    setSpriteNum(1);
                 }
-                spriteCounter = 0;
+                setSpriteCounter(0);
             }
         }
     }
@@ -154,7 +154,7 @@ public class Player extends Entity {
                     break;
                 case "boots":
                     gp.PlaySE(1);
-                    speed = speed + 2; // jika dapat sepatu maka kecepatan akan bertambah
+                    setSpeed(getSpeed() + 2); // jika dapat sepatu maka kecepatan akan bertambah
                     gp.obj[i] = null;
                     break;
             }
@@ -165,7 +165,7 @@ public class Player extends Entity {
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
-        switch (direction) {
+        switch (getDirection()) {
             case "up": //key W
                 if (spriteNum == 1) {
                     image = up1;
