@@ -37,6 +37,11 @@ public class Items { // ini jadi class induk dari segala segala class objek
             g2.drawImage(getImage(), screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
     }
+    
+    public void resetSolidArea() {
+        solidArea.x = solidAreaDefaultX;
+        solidArea.y = solidAreaDefaultY;
+    }
 
     /**
      * @return the image

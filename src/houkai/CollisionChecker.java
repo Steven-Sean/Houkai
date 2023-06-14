@@ -136,10 +136,8 @@ public class CollisionChecker {
                     }
                 }
                 // untuk menentukan arah entity / entitas
-                entity.getSolidArea().x = entity.getSolidAreaDefaultX();
-                entity.getSolidArea().y = entity.getSolidAreaDefaultY();
-                item.getSolidArea().x = item.getSolidAreaDefaultX();
-                item.getSolidArea().y = item.getSolidAreaDefaultY();
+                entity.resetSolidArea();
+                item.resetSolidArea();
             }
         }
         return index;
