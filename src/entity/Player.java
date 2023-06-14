@@ -91,10 +91,10 @@ public final class Player extends Entity {
 
             //--> Untuk memeriksa / mengecek tabrakan pada ubin
             setCollisionOn(false);
-            gamePanel.cChecker.checkTile(this);
+            gamePanel.collisionChecker.checkTile(this);
 
             // untuk memeriksa tabrakan pada objek
-            int objIndex = gamePanel.cChecker.checkObject(this, true);
+            int objIndex = gamePanel.collisionChecker.checkObject(this, true);
             pickUpObject(objIndex);
 
             //--> untuk pengecekan jika Collision == false maka player dapat gerak dan sebaliknya
