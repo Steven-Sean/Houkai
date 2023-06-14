@@ -122,7 +122,7 @@ public final class Player extends Entity {
 
     public void pickUpObject(int i) {
         if (i != 999) { // kalau index bukan 999 maka kita telah menyentuh suatu object
-            String objectName = gamePanel.items[i].name;
+            String objectName = gamePanel.items[i].getName();
 
             switch (objectName) {
                 case "key" -> {
