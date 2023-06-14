@@ -72,15 +72,15 @@ public class GamePanel extends JPanel implements Runnable {
         double drawInterval = 1000000000 / FPS; //--> Untuk 0.01666 seconds dapat menggambar 60 layar
         double delta = 0;
         long lastTime = System.nanoTime();
-        long currenTime;
+        long currentTime;
         long timer = 0;
         long drawCount = 0;
 
         while (gameThread != null) {
-            currenTime = System.nanoTime(); //--> Untuk 1 miliar nanodetik sama dengan 1 detik
-            delta += (currenTime - lastTime) / drawInterval;
-            timer += (currenTime - lastTime);
-            lastTime = currenTime;
+            currentTime = System.nanoTime(); //--> Untuk 1 miliar nanodetik sama dengan 1 detik
+            delta += (currentTime - lastTime) / drawInterval;
+            timer += (currentTime - lastTime);
+            lastTime = currentTime;
 
             if (delta >= 1) {
                 // 1. Update: memperbarui informasi seperti posisi karakter
@@ -111,10 +111,10 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
         tileManager.draw(g2);  //--> (Tile) pastikan kita draw tile dulu lalu player
         // OBJECT
-        for (Items obj1 : items) {
+        for (Items item : items) {
             // untuk meneruskan graphics2D
-            if (obj1 != null) {
-                obj1.draw(g2, this);
+            if (item != null) {
+                item.draw(g2, this);
             }
         }
 

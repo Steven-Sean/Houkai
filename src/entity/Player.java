@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;        //--> Untuk membaca gambar dari file atau m
 public final class Player extends Entity {
 
     GamePanel gamePanel;
-    KeyHandler keyH;
+    KeyHandler keyHandler;
 
     //--> Untuk menempatkan karakter pemain ditengah layar dan mengikuti latar belakang saat bergerak
     public final int screenX;
@@ -31,7 +31,7 @@ public final class Player extends Entity {
     //Constructor Player
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gamePanel = gp;
-        this.keyH = keyH;
+        this.keyHandler = keyH;
 
         //--> Untuk mengembalikan titik tengah layar
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
@@ -77,15 +77,15 @@ public final class Player extends Entity {
 
     public void update() {
         //--> Untuk pengecekan jika key ditekan akan diupdate
-        if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed) {
+        if (keyHandler.upPressed == true || keyHandler.downPressed == true || keyHandler.leftPressed == true || keyHandler.rightPressed) {
             //--> Untuk setiap penekanan key maka akan menambah / mengurang 4 pixel
-            if (keyH.upPressed == true) {
+            if (keyHandler.upPressed == true) {
                 setDirection("up");
-            } else if (keyH.downPressed == true) {
+            } else if (keyHandler.downPressed == true) {
                 setDirection("down");
-            } else if (keyH.leftPressed == true) {
+            } else if (keyHandler.leftPressed == true) {
                 setDirection("left");
-            } else if (keyH.rightPressed == true) {
+            } else if (keyHandler.rightPressed == true) {
                 setDirection("right");
             }
 

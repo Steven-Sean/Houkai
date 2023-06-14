@@ -77,7 +77,7 @@ public class CollisionChecker {
         }
     }
 
-    public int checkObject(Entity entity, boolean player) {
+    public int checkObject(Entity entity, boolean isPlayer) {
         int index = 999;
 
         for (Items item : gamePanel.items) {
@@ -96,7 +96,7 @@ public class CollisionChecker {
                             if (item.isCollision() == true) {
                                 entity.setCollisionOn(true);
                             }
-                            if (player == true) {
+                            if (isPlayer == true) {
                                 index = 1;
                             }
                         }
@@ -107,7 +107,7 @@ public class CollisionChecker {
                             if (item.isCollision() == true) {
                                 entity.setCollisionOn(true);
                             }
-                            if (player == true) {
+                            if (isPlayer == true) {
                                 index = 1;
                             }
                         }
@@ -118,7 +118,7 @@ public class CollisionChecker {
                             if (item.isCollision() == true) {
                                 entity.setCollisionOn(true);
                             }
-                            if (player == true) {
+                            if (isPlayer == true) {
                                 index = 1;
                             }
                         }
@@ -129,7 +129,7 @@ public class CollisionChecker {
                             if (item.isCollision() == true) {
                                 entity.setCollisionOn(true);
                             }
-                            if (player == true) {
+                            if (isPlayer == true) {
                                 index = 1;
                             }
                         }
