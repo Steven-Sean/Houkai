@@ -31,6 +31,11 @@ public class Entity {
     int solidAreaDefaultX;
     int solidAreaDefaultY;
     boolean collisionOn = false;
+    
+    public void resetSolidArea() {
+        solidArea.x = solidAreaDefaultX;
+        solidArea.y = solidAreaDefaultY;
+    }
 
     /**
      * @return the worldX

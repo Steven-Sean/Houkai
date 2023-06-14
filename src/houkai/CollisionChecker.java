@@ -77,7 +77,7 @@ public class CollisionChecker {
         }
     }
 
-    public int checkObject(Entity entity, boolean player) {
+    public int checkObject(Entity entity, boolean isPlayer) {
         int index = 999;
 
         for (Items item : gamePanel.items) {
@@ -86,60 +86,58 @@ public class CollisionChecker {
                 entity.getSolidArea().x = entity.getWorldX() + entity.getSolidArea().x;
                 entity.getSolidArea().y = entity.getWorldY() + entity.getSolidArea().y;
                 // untuk mendapatkan object petaknya padat
-                item.solidArea.x = item.worldX + item.solidArea.x;
-                item.solidArea.y = item.worldY + item.solidArea.y;
+                item.getSolidArea().x = item.getWorldX() + item.getSolidArea().x;
+                item.getSolidArea().y = item.getWorldY() + item.getSolidArea().y;
                 switch (entity.getDirection()) {
                     case "up" -> {
                         entity.getSolidArea().y = entity.getSolidArea().y - entity.getSpeed();
-                        if (entity.getSolidArea().intersects(item.solidArea)) {
+                        if (entity.getSolidArea().intersects(item.getSolidArea())) {
                             // untuk memberi tanda jika entity tabrakan
-                            if (item.collision == true) {
+                            if (item.isCollision() == true) {
                                 entity.setCollisionOn(true);
                             }
-                            if (player == true) {
+                            if (isPlayer == true) {
                                 index = 1;
                             }
                         }
                     }
                     case "down" -> {
                         entity.getSolidArea().y = entity.getSolidArea().y + entity.getSpeed();
-                        if (entity.getSolidArea().intersects(item.solidArea)) {
-                            if (item.collision == true) {
+                        if (entity.getSolidArea().intersects(item.getSolidArea())) {
+                            if (item.isCollision() == true) {
                                 entity.setCollisionOn(true);
                             }
-                            if (player == true) {
+                            if (isPlayer == true) {
                                 index = 1;
                             }
                         }
                     }
                     case "left" -> {
                         entity.getSolidArea().x = entity.getSolidArea().x - entity.getSpeed();
-                        if (entity.getSolidArea().intersects(item.solidArea)) {
-                            if (item.collision == true) {
+                        if (entity.getSolidArea().intersects(item.getSolidArea())) {
+                            if (item.isCollision() == true) {
                                 entity.setCollisionOn(true);
                             }
-                            if (player == true) {
+                            if (isPlayer == true) {
                                 index = 1;
                             }
                         }
                     }
                     case "right" -> {
                         entity.getSolidArea().x = entity.getSolidArea().x + entity.getSpeed();
-                        if (entity.getSolidArea().intersects(item.solidArea)) {
-                            if (item.collision == true) {
+                        if (entity.getSolidArea().intersects(item.getSolidArea())) {
+                            if (item.isCollision() == true) {
                                 entity.setCollisionOn(true);
                             }
-                            if (player == true) {
+                            if (isPlayer == true) {
                                 index = 1;
                             }
                         }
                     }
                 }
                 // untuk menentukan arah entity / entitas
-                entity.getSolidArea().x = entity.getSolidAreaDefaultX();
-                entity.getSolidArea().y = entity.getSolidAreaDefaultY();
-                item.solidArea.x = item.solidAreaDefaultX;
-                item.solidArea.y = item.solidAreaDefaultY;
+                entity.resetSolidArea();
+                item.resetSolidArea();
             }
         }
         return index;
