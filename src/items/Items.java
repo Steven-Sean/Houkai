@@ -24,6 +24,11 @@ public class Items { // ini jadi class induk dari segala segala class objek
     int solidAreaDefaultX = 0;
     int solidAreaDefaultY = 0;
 
+    public Items(int worldX, int worldY) {
+        this.worldX = worldX;
+        this.worldY = worldY;
+    }
+
     public void draw(Graphics2D g2, GamePanel gp) { // untuk menggambat
         int screenX = getWorldX() - gp.player.getWorldX() + gp.player.screenX;
         int screenY = getWorldY() - gp.player.getWorldY() + gp.player.screenY;

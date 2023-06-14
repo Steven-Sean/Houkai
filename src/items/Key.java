@@ -13,7 +13,8 @@ import javax.imageio.ImageIO;
  */
 public class Key extends Items { // class ini untuk memperluas superobject dan konstraktor
 
-    public Key() {
+    public Key(int worldX, int worldY) {
+        super(worldX, worldY);
         name = "key";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/tiles/chest_1.png")); // untuk memuat gambar

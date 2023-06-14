@@ -13,12 +13,15 @@ import javax.imageio.ImageIO;
  */
 public class Chest extends Items {
 
-    public Chest() {
+    public Chest(int worldX, int worldY) {
+        super(worldX, worldY);
         name = "chest";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/tiles/chest_1.png")); // untuk memuat gambar                    
         } catch (IOException e) {
             e.printStackTrace();
         }
+        super.worldX = worldX;
+        super.worldY = worldY;
     }
 }

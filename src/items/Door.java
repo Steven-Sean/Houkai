@@ -13,7 +13,8 @@ import javax.imageio.ImageIO;
  */
 public class Door extends Items {
 
-    public Door() {
+    public Door(int worldX, int worldY) {
+        super(worldX, worldY);
         name = "door";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/tiles/door_left.png")); // untuk memuat gambar
@@ -21,5 +22,7 @@ public class Door extends Items {
             e.printStackTrace();
         }
         collision = true;
+        super.worldX = worldX;
+        super.worldY = worldY;
     }
 }
