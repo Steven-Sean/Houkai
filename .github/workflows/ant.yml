@@ -23,4 +23,4 @@ jobs:
         # Java distribution. See the list of supported distributions in README file
         distribution: zulu
     - name: Build with Ant
-      run: ant -noinput -buildfile build.xml
+      run: ant -noinput -buildfile ./build.xml
