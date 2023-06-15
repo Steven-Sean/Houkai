@@ -4,6 +4,7 @@
  */
 package houkai;
 
+import entity.Enemy;
 import items.Chest; // ini untuk item chest
 import items.Door; // ini untuk item door
 import items.Key; // ini untuk item key
@@ -44,5 +45,9 @@ public class AssetSetter {
 //        gamePanel.items[5] = new Chest();
 //        gamePanel.items[5].worldX = 28 * gamePanel.tileSize;
 //        gamePanel.items[5].worldY = 4 * gamePanel.tileSize; // item ke 6    
+    }
+    
+    public void setEnemies() {
+        gamePanel.enemies.add(new Enemy(520 * 3, 720 * 3));
     }
 }
