@@ -29,14 +29,14 @@ public class Items { // ini jadi class induk dari segala segala class objek
         this.worldY = worldY;
     }
 
-    public void draw(Graphics2D g2, GamePanel gp) { // untuk menggambat
-        int screenX = getWorldX() - gp.player.getWorldX() + gp.player.screenX;
-        int screenY = getWorldY() - gp.player.getWorldY() + gp.player.screenY;
+    public void draw(Graphics2D g2, GamePanel gp) { // untuk menggambar
+        int screenX = getWorldX() - gp.getPlayer().getWorldX() + gp.getPlayer().screenX;
+        int screenY = getWorldY() - gp.getPlayer().getWorldY() + gp.getPlayer().screenY;
         //--> berfungsi untuk menggambar tiles disekitar player saja jadi tidak melebihi screen
-        if (getWorldX() + gp.tileSize > gp.player.getWorldX() - gp.player.screenX
-                && getWorldX() - gp.tileSize < gp.player.getWorldX() + gp.player.screenX
-                && getWorldY() + gp.tileSize > gp.player.getWorldY() - gp.player.screenY
-                && getWorldY() - gp.tileSize < gp.player.getWorldY() + gp.player.screenY) {
+        if (getWorldX() + gp.tileSize > gp.getPlayer().getWorldX() - gp.getPlayer().screenX
+                && getWorldX() - gp.tileSize < gp.getPlayer().getWorldX() + gp.getPlayer().screenX
+                && getWorldY() + gp.tileSize > gp.getPlayer().getWorldY() - gp.getPlayer().screenY
+                && getWorldY() - gp.tileSize < gp.getPlayer().getWorldY() + gp.getPlayer().screenY) {
 
             //--> Untuk Mencetak Gambar Map 
             g2.drawImage(getImage(), screenX, screenY, gp.tileSize, gp.tileSize, null);

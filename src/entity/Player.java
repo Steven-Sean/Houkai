@@ -65,10 +65,10 @@ public final class Player extends Entity {
         try {
             String resourcePath = "/player/nu_";
             for (int i = 0; i < 3; i++) {
-                getUp()[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"up_0" + (i+1) + ".png"));
-                getDown()[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"down_0" + (i+1) + ".png"));
-                getLeft()[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"left_0" + (i+1) + ".png"));
-                getRight()[i] = ImageIO.read(getClass().getResourceAsStream(resourcePath +"right_0" + (i+1) + ".png"));
+                getUp().set(i, ImageIO.read(getClass().getResourceAsStream(resourcePath +"up_0" + (i+1) + ".png")));
+                getDown().set( i,ImageIO.read(getClass().getResourceAsStream(resourcePath +"down_0" + (i+1) + ".png")));
+                getLeft().set( i,ImageIO.read(getClass().getResourceAsStream(resourcePath +"left_0" + (i+1) + ".png")));
+                getRight().set(i, ImageIO.read(getClass().getResourceAsStream(resourcePath +"right_0" + (i+1) + ".png")));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -122,19 +122,19 @@ public final class Player extends Entity {
 
     public void pickUpObject(int i) {
         if (i != 999) { // kalau index bukan 999 maka kita telah menyentuh suatu object
-            String objectName = gamePanel.items[i].getName();
+            String objectName = gamePanel.getItems().get(i).getName();
 
             switch (objectName) {
                 case "key" -> {
                     //gp.PlaySE(2);
                     keyCount++;
-                    gamePanel.items[i] = null;
+                    gamePanel.getItems().set(i, null);
                     System.out.println("Key:" + keyCount); // untuk mengetahui berapa key skrg
                 }
                 case "door" -> {
                     if (keyCount > 0) {
                         //gp.PlaySE(2);
-                        gamePanel.items[i] = null;
+                        gamePanel.getItems().set(i, null);
                         keyCount--;
                     }
                     System.out.println("Key:" + keyCount);
@@ -142,7 +142,7 @@ public final class Player extends Entity {
                 case "boots" -> {
                     gamePanel.PlaySE(1);
                     setSpeed(getSpeed() + 2); // jika dapat sepatu maka kecepatan akan bertambah
-                    gamePanel.items[i] = null;
+                    gamePanel.getItems().set(i, null);
                 }
 
             }
@@ -155,13 +155,13 @@ public final class Player extends Entity {
 
         switch (getDirection()) {
             case "up" -> //key W
-                image = getUp()[getSpriteNum()];
+                image = getUp().get(getSpriteNum());
             case "down" -> //Key S
-                image = getDown()[getSpriteNum()];
+                image = getDown().get(getSpriteNum());
             case "left" -> //Key A
-                image = getLeft()[getSpriteNum()];
+                image = getLeft().get(getSpriteNum());
             case "right" -> //Key D
-                image = getRight()[getSpriteNum()];
+                image = getRight().get(getSpriteNum());
         }
 
         //--> Untuk mencetak gambar pada frame

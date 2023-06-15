@@ -162,14 +162,14 @@ public final class TileManager {
             //--> Untuk player agar berada pada posisi tengah dan menampilkan map sesuai ukuran screen 
             int worldX = worldCol * gamePanel.tileSize;
             int worldY = worldRow * gamePanel.tileSize;
-            int screenX = worldX - gamePanel.player.getWorldX() + gamePanel.player.screenX;
-            int screenY = worldY - gamePanel.player.getWorldY() + gamePanel.player.screenY;
+            int screenX = worldX - gamePanel.getPlayer().getWorldX() + gamePanel.getPlayer().screenX;
+            int screenY = worldY - gamePanel.getPlayer().getWorldY() + gamePanel.getPlayer().screenY;
 
             //--> berfungsi untuk menggambar tiles disekitar player saja jadi tidak melebihi screen
-            if (worldX + gamePanel.tileSize > gamePanel.player.getWorldX() - gamePanel.player.screenX
-                    && worldX - gamePanel.tileSize < gamePanel.player.getWorldX() + gamePanel.player.screenX
-                    && worldY + gamePanel.tileSize > gamePanel.player.getWorldY() - gamePanel.player.screenY
-                    && worldY - gamePanel.tileSize < gamePanel.player.getWorldY() + gamePanel.player.screenY) {
+            if (worldX + gamePanel.tileSize > gamePanel.getPlayer().getWorldX() - gamePanel.getPlayer().screenX
+                    && worldX - gamePanel.tileSize < gamePanel.getPlayer().getWorldX() + gamePanel.getPlayer().screenX
+                    && worldY + gamePanel.tileSize > gamePanel.getPlayer().getWorldY() - gamePanel.getPlayer().screenY
+                    && worldY - gamePanel.tileSize < gamePanel.getPlayer().getWorldY() + gamePanel.getPlayer().screenY) {
 
                 //--> Untuk Mencetak Gambar Map 
                 g2.drawImage(tile[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
