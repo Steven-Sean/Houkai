@@ -6,21 +6,22 @@ package entity;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  *
  * @author AsuS
  */
-public class Entity {
+public abstract class Entity {
 
     int worldX;
     int worldY;
     int speed;
 
-    BufferedImage[] up = new BufferedImage[3];
-    BufferedImage[] down = new BufferedImage[3];
-    BufferedImage[] left = new BufferedImage[3];
-    BufferedImage[] right = new BufferedImage[3];
+    ArrayList<BufferedImage> up = new ArrayList<>();
+    ArrayList<BufferedImage> down = new ArrayList<>();
+    ArrayList<BufferedImage> left = new ArrayList<>();
+    ArrayList<BufferedImage> right = new ArrayList<>();
     String direction;
 
     int spriteCounter = 0;
@@ -177,59 +178,37 @@ public class Entity {
         this.collisionOn = collisionOn;
     }
 
-    /**
-     * @return the up
-     */
-    public BufferedImage[] getUp() {
+    public ArrayList<BufferedImage> getUp() {
         return up;
     }
 
-    /**
-     * @param up the up to set
-     */
-    public void setUp(BufferedImage[] up) {
+    public void setUp(ArrayList<BufferedImage> up) {
         this.up = up;
     }
 
-    /**
-     * @return the down
-     */
-    public BufferedImage[] getDown() {
+    public ArrayList<BufferedImage> getDown() {
         return down;
     }
 
-    /**
-     * @param down the down to set
-     */
-    public void setDown(BufferedImage[] down) {
+    public void setDown(ArrayList<BufferedImage> down) {
         this.down = down;
     }
 
-    /**
-     * @return the left
-     */
-    public BufferedImage[] getLeft() {
+    public ArrayList<BufferedImage> getLeft() {
         return left;
     }
 
-    /**
-     * @param left the left to set
-     */
-    public void setLeft(BufferedImage[] left) {
+    public void setLeft(ArrayList<BufferedImage> left) {
         this.left = left;
     }
 
-    /**
-     * @return the right
-     */
-    public BufferedImage[] getRight() {
+    public ArrayList<BufferedImage> getRight() {
         return right;
     }
 
-    /**
-     * @param right the right to set
-     */
-    public void setRight(BufferedImage[] right) {
+    public void setRight(ArrayList<BufferedImage> right) {
         this.right = right;
     }
+
+    
 }
