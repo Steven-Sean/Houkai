@@ -4,7 +4,7 @@
  */
 package houkai;
 
-import entity.Player;
+import entity.*;
 import houkai.tile.TileManager;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,6 +12,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import items.Items;
+import java.util.ArrayList;
 
 /**
  *
@@ -36,7 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int worldHeight = tileSize * maxWorldRow;
 
     //--> Untuk setting FPS
-    int FPS = 60;
+    private int FPS = 60;
     TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
     Sound sound = new Sound();
@@ -45,8 +46,9 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
 
     // untuk entity dan objek
-    public Player player = new Player(this, keyHandler);
-    public Items[] items = new Items[15]; // contohnya kalau 10 kita bisa nampilin 10 objek sekaligus, terlalu banyak bisa bikin ngelag
+    final Player player = new Player(this, keyHandler);
+    final ArrayList<Items> items = new ArrayList<>(); // contohnya kalau 10 kita bisa nampilin 10 objek sekaligus, terlalu banyak bisa bikin ngelag
+    final ArrayList<Enemy> enemies = new ArrayList<>();
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -57,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame() {
-        assetSetter.setObject();
+        assetSetter.setItems();
         //PlayMusic(0);
     }
 
@@ -117,6 +119,8 @@ public class GamePanel extends JPanel implements Runnable {
                 item.draw(g2, this);
             }
         }
+        
+        
 
         player.draw(g2); //--> (Player)
         g2.dispose();
@@ -138,5 +142,17 @@ public class GamePanel extends JPanel implements Runnable {
     public void PlaySE(int i) {
         sound.setFile(i);
         sound.play();
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public ArrayList<Items> getItems() {
+        return items;
+    }
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
     }
 }

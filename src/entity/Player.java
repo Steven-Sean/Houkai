@@ -122,19 +122,19 @@ public final class Player extends Entity {
 
     public void pickUpObject(int i) {
         if (i != 999) { // kalau index bukan 999 maka kita telah menyentuh suatu object
-            String objectName = gamePanel.items[i].getName();
+            String objectName = gamePanel.getItems().get(i).getName();
 
             switch (objectName) {
                 case "key" -> {
                     //gp.PlaySE(2);
                     keyCount++;
-                    gamePanel.items[i] = null;
+                    gamePanel.getItems().set(i, null);
                     System.out.println("Key:" + keyCount); // untuk mengetahui berapa key skrg
                 }
                 case "door" -> {
                     if (keyCount > 0) {
                         //gp.PlaySE(2);
-                        gamePanel.items[i] = null;
+                        gamePanel.getItems().set(i, null);
                         keyCount--;
                     }
                     System.out.println("Key:" + keyCount);
@@ -142,7 +142,7 @@ public final class Player extends Entity {
                 case "boots" -> {
                     gamePanel.PlaySE(1);
                     setSpeed(getSpeed() + 2); // jika dapat sepatu maka kecepatan akan bertambah
-                    gamePanel.items[i] = null;
+                    gamePanel.getItems().set(i, null);
                 }
 
             }

@@ -20,14 +20,14 @@ public class AssetSetter {
         this.gamePanel = gp;
     }
 
-    public void setObject() {
+    public void setItems() {
 
         // kalau array diatur 10 maka item yg bisa ditampilkan bisa sampai 10, kalau terlalu banyak membuat game lambat
 //        gamePanel.items[0] = new Key();
 //        gamePanel.items[0].worldX = 520 * 3;
 //        gamePanel.items[0].worldY = 720 * 3; // item ke 1
         
-        gamePanel.items[1] = new Key(595 * 3, 735 * 3); // item ke 2
+        gamePanel.items.set(1, new Key(595 * 3, 735 * 3)); // item ke 2
 
 //        gamePanel.items[2] = new Door();
 //        gamePanel.items[2].worldX = 43 * gamePanel.tileSize;
