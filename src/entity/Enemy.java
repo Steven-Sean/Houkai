@@ -27,10 +27,10 @@ public final class Enemy extends Entity {
         try {
             String resourcePath = "/player/nu_";
             for (int i = 0; i < 3; i++) {
-                getUp().set(i, ImageIO.read(getClass().getResourceAsStream(resourcePath +"up_0" + (i+1) + ".png")));
-                getDown().set( i,ImageIO.read(getClass().getResourceAsStream(resourcePath +"down_0" + (i+1) + ".png")));
-                getLeft().set( i,ImageIO.read(getClass().getResourceAsStream(resourcePath +"left_0" + (i+1) + ".png")));
-                getRight().set(i, ImageIO.read(getClass().getResourceAsStream(resourcePath +"right_0" + (i+1) + ".png")));
+                getUp().add(ImageIO.read(getClass().getResourceAsStream(resourcePath +"up_0" + (i+1) + ".png")));
+                getDown().add(ImageIO.read(getClass().getResourceAsStream(resourcePath +"down_0" + (i+1) + ".png")));
+                getLeft().add(ImageIO.read(getClass().getResourceAsStream(resourcePath +"left_0" + (i+1) + ".png")));
+                getRight().add(ImageIO.read(getClass().getResourceAsStream(resourcePath +"right_0" + (i+1) + ".png")));
             }
         } catch (IOException e) {
             e.printStackTrace();

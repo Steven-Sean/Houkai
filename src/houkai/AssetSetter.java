@@ -28,7 +28,7 @@ public class AssetSetter {
 //        gamePanel.items[0].worldX = 520 * 3;
 //        gamePanel.items[0].worldY = 720 * 3; // item ke 1
         
-        gamePanel.items.set(1, new Key(595 * 3, 735 * 3)); // item ke 2
+        gamePanel.items.add(new Key(595 * 3, 735 * 3)); // item ke 2
 
 //        gamePanel.items[2] = new Door();
 //        gamePanel.items[2].worldX = 43 * gamePanel.tileSize;
