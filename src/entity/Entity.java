@@ -37,6 +37,19 @@ public abstract class Entity {
         solidArea.x = solidAreaDefaultX;
         solidArea.y = solidAreaDefaultY;
     }
+    
+    public int getEntityLeftWorldX() {
+        return worldX + solidArea.x;
+    } //kiriX = 8
+    public int getEntityRightWorldX() {
+        return worldX + solidArea.x + solidArea.width;
+    } //kananX = 16
+    public int getEntityTopWorldY() {
+        return worldY + solidArea.y;
+    } //atasY = 32
+    public int getEntityBottomWorldY() {
+        return worldY + solidArea.y + solidArea.height;
+    } //bawahY = 32
 
     /**
      * @return the worldX
