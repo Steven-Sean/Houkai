@@ -23,10 +23,10 @@ public class CollisionChecker {
     //--> Untuk pengecekan ubin
     public void checkTile(Entity entity) {
         //--> Untuk pengecekan berdasarkan koordinat Solid Area (daerah yg padat player)
-        int entityLeftWorldX = entity.getWorldX() + entity.getSolidArea().x; //kiriX = 8
-        int entityRightWorldX = entity.getWorldX() + entity.getSolidArea().x + entity.getSolidArea().width; //kananX = 16
-        int entityTopWorldY = entity.getWorldY() + entity.getSolidArea().y; //atasY = 32
-        int entityBottomWorldY = entity.getWorldY() + entity.getSolidArea().y + entity.getSolidArea().height; //bawahY = 32
+        int entityLeftWorldX = entity.getEntityLeftWorldX(); //kiriX = 8
+        int entityRightWorldX = entity.getEntityRightWorldX(); //kananX = 16
+        int entityTopWorldY = entity.getEntityTopWorldY(); //atasY = 32
+        int entityBottomWorldY = entity.getEntityBottomWorldY(); //bawahY = 32
 
         //--> Untuk mencari Nomor Col dan Row didapatkan dari koordinat diatas 
         int entityLeftCol = entityLeftWorldX / gamePanel.tileSize;

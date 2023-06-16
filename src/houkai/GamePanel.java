@@ -120,7 +120,11 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         
-        
+        for (Enemy enemy : enemies) {
+            if (enemy != null) {
+                enemy.draw(g2, this);
+            }
+        }
 
         player.draw(g2); //--> (Player)
         g2.dispose();
