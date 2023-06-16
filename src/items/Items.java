@@ -15,9 +15,9 @@ import java.awt.image.BufferedImage;
  */
 public class Items { // ini jadi class induk dari segala segala class objek
 
-    BufferedImage image;
-    String name;
-    boolean collision = false;
+    BufferedImage image; // imagenya berarti BufferdImage
+    String name; 
+    boolean collision = false; // berarti item gabisa ditabrak
     int worldX; // agar objek menjadi solid area atau seluruh petak objeknya padat
     int worldY;
     Rectangle solidArea = new Rectangle(0, 0, 48, 48);
@@ -42,6 +42,7 @@ public class Items { // ini jadi class induk dari segala segala class objek
             g2.drawImage(getImage(), screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
     }
+    
     
     public void resetSolidArea() {
         solidArea.x = solidAreaDefaultX;
