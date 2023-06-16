@@ -17,7 +17,7 @@ public class Key extends Items { // class ini untuk memperluas superobject dan k
         super(worldX, worldY);
         name = "key";
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/tiles/chest_1.png")); // untuk memuat gambar
+            image = ImageIO.read(getClass().getResourceAsStream("/tiles/key.png")); // untuk memuat gambar
         } catch (IOException e) {
             e.printStackTrace();
         }
