@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;   // --> operasi seperti pembacaan, penulis
  * @author AsuS
  */
 public class Tile {
-
     public BufferedImage image;
     public boolean collision = false;
 }

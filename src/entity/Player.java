@@ -16,156 +16,221 @@ import javax.imageio.ImageIO;        //--> Untuk membaca gambar dari file atau m
  *
  * @author AsuS
  */
-public final class Player extends Entity {
-
-    GamePanel gamePanel;
-    KeyHandler keyHandler;
-
+public class Player extends Entity {
+    GamePanel gp;
+    KeyHandler keyH;
+    
     //--> Untuk menempatkan karakter pemain ditengah layar dan mengikuti latar belakang saat bergerak
     public final int screenX;
     public final int screenY;
-
+    
     // untuk menunjukkan berapa kunci yg dimiliki pemain saat ini
-    int keyCount = 0;
+    public int haskey = 0;
 
     //Constructor Player
     public Player(GamePanel gp, KeyHandler keyH) {
-        this.gamePanel = gp;
-        this.keyHandler = keyH;
-
+        this.gp = gp;
+        this.keyH = keyH;
+        
         //--> Untuk mengembalikan titik tengah layar
-        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
-        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
-
+        screenX = gp.screenWidth/2 - (gp.tileSize/2);
+        screenY = gp.screenHeight/2 - (gp.tileSize/2);
+        
         //--> Untuk membuat kotak kecil untuk player
-        solidArea = new Rectangle();
+        solidArea = new Rectangle(); 
         solidArea.x = 8;
         solidArea.y = 16;
-        solidArea.width = 32;
-        solidArea.height = 32;
-
-        // untuk merekam nilai default 
+        //--> Untuk merekam nilai default untuk mengubah nilai x/y
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-
+        
+        solidArea.width = 32;
+        solidArea.height = 32;
+        
         setDefaultValue();
         getPlayerImage();
     }
-
+    
     //--> Untuk dijadikan posisi awal player
-    public void setDefaultValue() {
-        setWorldX(520 * 3);
-        setWorldY(760 * 3);
-        setSpeed(4);
-        setDirection("up");
+    public void setDefaultValue(){
+        worldX = 520 * 3;
+        worldY = 760 * 3;
+        speed = 4;
+        direction = "up";
     }
-
+    
     //--> Untuk dijadikan sprite player saat bergerak
-    public void getPlayerImage() {
-        try {
-            String resourcePath = "/player/nu_";
-            for (int i = 0; i < 3; i++) {
-                getUp().add(ImageIO.read(getClass().getResourceAsStream(resourcePath +"up_0" + (i+1) + ".png")));
-                getDown().add(ImageIO.read(getClass().getResourceAsStream(resourcePath +"down_0" + (i+1) + ".png")));
-                getLeft().add(ImageIO.read(getClass().getResourceAsStream(resourcePath +"left_0" + (i+1) + ".png")));
-                getRight().add(ImageIO.read(getClass().getResourceAsStream(resourcePath +"right_0" + (i+1) + ".png")));
-            }
-        } catch (IOException e) {
+    public void getPlayerImage(){
+        try{
+            up1 = ImageIO.read(getClass().getResourceAsStream("/player/nu_up_01.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/player/nu_up_02.png"));
+            up3 = ImageIO.read(getClass().getResourceAsStream("/player/nu_up_03.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/player/nu_down_01.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/player/nu_down_02.png"));
+            down3 = ImageIO.read(getClass().getResourceAsStream("/player/nu_down_03.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/player/nu_left_01.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/player/nu_left_02.png"));
+            left3 = ImageIO.read(getClass().getResourceAsStream("/player/nu_left_03.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/player/nu_right_01.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/player/nu_right_02.png"));
+            right3 = ImageIO.read(getClass().getResourceAsStream("/player/nu_right_03.png"));
+        }catch(IOException e){
             e.printStackTrace();
         }
     }
-
-    public void update() {
+    
+    public void update(){
         //--> Untuk pengecekan jika key ditekan akan diupdate
-        if (keyHandler.upPressed == true || keyHandler.downPressed == true || keyHandler.leftPressed == true || keyHandler.rightPressed) {
+        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed){
             //--> Untuk setiap penekanan key maka akan menambah / mengurang 4 pixel
-            if (keyHandler.upPressed == true) {
-                setDirection("up");
-            } else if (keyHandler.downPressed == true) {
-                setDirection("down");
-            } else if (keyHandler.leftPressed == true) {
-                setDirection("left");
-            } else if (keyHandler.rightPressed == true) {
-                setDirection("right");
+            if(keyH.upPressed == true){
+                direction = "up";
+            }else if(keyH.downPressed == true){
+                direction = "down";
+            }else if(keyH.leftPressed == true){
+                direction = "left";
+            }else if(keyH.rightPressed == true){
+                direction = "right";
             }
 
             //--> Untuk memeriksa / mengecek tabrakan pada ubin
-            setCollisionOn(false);
-            gamePanel.collisionChecker.checkTile(this);
-
-            // untuk memeriksa tabrakan pada objek
-            int objIndex = gamePanel.collisionChecker.checkObject(this, true);
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+            
+            //--> Untuk memeriksa tabrakan pada objek
+            int objIndex = gp.cChecker.checkObject(this,true);
             pickUpObject(objIndex);
-
+            
             //--> untuk pengecekan jika Collision == false maka player dapat gerak dan sebaliknya
-            if (isCollisionOn() == false) {
-                switch (getDirection()) {
-                    case "up" -> setWorldY(getWorldY() - getSpeed()); //key W
-                    case "down" -> setWorldY(getWorldY() + getSpeed()); //key S
-                    case "left" -> setWorldX(getWorldX() - getSpeed()); //key A
-                    case "right" -> setWorldX(getWorldX() + getSpeed()); //key D
+            if(collisionOn == false){
+                switch (direction) {
+                case "up":
+                    worldY -= speed; //key W
+                    break;
+                case "down":
+                    worldY += speed; //key S
+                    break;
+                case "left":
+                    worldX -= speed; //key A
+                    break;
+                case "right":
+                    worldX += speed; //key D
+                    break;
                 }
             }
-            setSpriteCounter(getSpriteCounter() + 1);
-
+            spriteCounter++;
+            
             //--> Untuk mengatur kecepatan sprite 
-            if (getSpriteCounter() > 12) {
-                if (getSpriteNum() == 1) {
-                    setSpriteNum(2);
-                } else if (getSpriteNum() == 2) {
-                    setSpriteNum(1);
+            if(spriteCounter > 12){
+                if(spriteNum == 1){
+                    spriteNum = 2;
+                }else if(spriteNum == 2){
+                    spriteNum = 1;
                 }
-                setSpriteCounter(0);
+                spriteCounter = 0;
             }
         }
     }
-
-    public void pickUpObject(int i) {
-        if (i != 999) { // kalau index bukan 999 maka kita telah menyentuh suatu object
-            String objectName = gamePanel.getItems().get(i-1).getName();
-
-            switch (objectName) {
-                case "key" -> {
-                    //gp.PlaySE(2);
-                    keyCount++;
-                    gamePanel.getItems().set(i-1, null);
-                    System.out.println("Key:" + keyCount); // untuk mengetahui berapa key skrg
+    
+    public void pickUpObject (int i){
+        //--> Jika index bukan 999 maka kita telah menyentuh suatu object
+        if(i!=999){ 
+            String objectName = gp.obj[i].name;
+            
+            switch (objectName){
+            case "key":
+                //--> Untuk sound efek ketika key di ambil
+                gp.PlaySE(1);
+                haskey++;
+                gp.obj[i] = null ;
+                //--> Untuk mengetahui 
+                gp.ui.showMessage("Anda mendapatkan kunci! ");
+                break;
+            case "door":
+                if(haskey > 0){
+                    gp.obj[i] = null ;
+                    haskey--;
+                    gp.ui.showMessage("Pintu terbuka!");
                 }
-                case "door" -> {
-                    if (keyCount > 0) {
-                        //gp.PlaySE(2);
-                        gamePanel.getItems().set(i-1, null);
-                        keyCount--;
-                    }
-                    System.out.println("Key:" + keyCount);
+                else{
+                    gp.ui.showMessage("Kamu perlu kunci untuk membukanya!");
                 }
-                case "boots" -> {
-                    gamePanel.PlaySE(1);
-                    setSpeed(getSpeed() + 2); // jika dapat sepatu maka kecepatan akan bertambah
-                    gamePanel.getItems().set(i-1, null);
+                break;
+            case "boots":
+                //--> Untuk menambah kecepatan player
+                speed += 1;
+                gp.obj[i] = null;
+                gp.ui.showMessage("Speed up!");
+                break;
+            case "chest":
+                gp.StopMusic();
+                gp.PlaySE(i);
+                if(haskey > 0){
+                    gp.obj[i] = null ;
+                    haskey--;
+                    gp.ui.gameFinished = true;
                 }
-
+                else{
+                    gp.ui.showMessage("Kamu perlu kunci untuk membukanya!");
+                }
+                break;
             }
         }
     }
-
+    
     //--> Untuk mencetak gambar sesuai dengan urutan sprite sesuai dengan key yang kita tekan
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2){
         BufferedImage image = null;
-
-        switch (getDirection()) {
-            case "up" -> //key W
-                image = getUp().get(getSpriteNum());
-            case "down" -> //Key S
-                image = getDown().get(getSpriteNum());
-            case "left" -> //Key A
-                image = getLeft().get(getSpriteNum());
-            case "right" -> //Key D
-                image = getRight().get(getSpriteNum());
+        
+        switch(direction){
+        case "up": //key W
+            if(spriteNum == 1){
+                image = up1;
+            }
+            if(spriteNum == 2){
+                image = up2;
+            }
+            if(spriteNum == 3){
+                image = up3;
+            }
+            break;
+        case "down": //Key S
+            if(spriteNum == 1){
+                image = down1;
+            }
+            if(spriteNum == 2){
+                image = down2;
+            }
+            if(spriteNum == 3){
+                image = down3;
+            }
+            break;
+        case "left": //Key A
+            if(spriteNum == 1){
+                image = left1;
+            }
+            if(spriteNum == 2){
+                image = left2;
+            }
+            if(spriteNum == 3){
+                image = left3;
+            }
+            break;
+        case "right": //Key D
+            if(spriteNum == 1){
+                image = right1;
+            }
+            if(spriteNum == 2){
+                image = right2;
+            }
+            if(spriteNum == 3){
+                image = right3;
+            }
+            break;
         }
-
+        
         //--> Untuk mencetak gambar pada frame
-        g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
-
+    
 }
