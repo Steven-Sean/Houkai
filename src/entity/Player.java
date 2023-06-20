@@ -75,6 +75,7 @@ public final class Player extends Entity {
         }
     }
 
+    @Override
     public void update() {
         //--> Untuk pengecekan jika key ditekan akan diupdate
         if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed) {
@@ -199,6 +200,7 @@ public final class Player extends Entity {
     }
 
     //--> Untuk mencetak gambar sesuai dengan urutan sprite sesuai dengan key yang kita tekan
+    @Override
     public void draw(Graphics2D g2) {
         BufferedImage image = getImageByDirection(direction);
 
