@@ -22,18 +22,12 @@ public final class Enemy extends Entity{
     
     //--> Untuk dijadikan sprite player saat bergerak
     public void getImage(){
-        up1 = setup("/npc/wb_up_1");
-        up2 = setup("/npc/wb_up_2");
-        up3 = setup("/npc/wb_up_3");
-        down1 = setup("/npc/wb_down_1");
-        down2 = setup("/npc/wb_down_2");
-        down3 = setup("/npc/wb_down_3");
-        left1 = setup("/npc/wb_left_1");
-        left2 = setup("/npc/wb_left_2");
-        left3 = setup("/npc/wb_left_3");
-        right1 = setup("/npc/wb_right_1");
-        right2 = setup("/npc/wb_right_2");
-        right3 = setup("/npc/wb_right_3");
+        for (int i = 0; i < 3; i++) {
+            up[i] = setup("/npc/wb_up_" + (i+1));
+            down[i] = setup("/npc/wb_down_" + (i+1));
+            left[i] = setup("/npc/wb_left_" + (i+1));
+            right[i] = setup("/npc/wb_right_" + (i+1));
+        }
     }
     
     //--> Untuk edit tulisan yang ingin ditampilkan 

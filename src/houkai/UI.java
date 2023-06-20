@@ -191,7 +191,7 @@ public class UI {
             // DRAGON HONKAI IMAGE 
             x = gp.screenWidth/2 - (gp.tileSize*2)/2;
             y += gp.tileSize*3;
-            g2.drawImage(gp.player.down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
+            g2.drawImage(gp.player.getImageByDirection("down"), x, y, gp.tileSize*2, gp.tileSize*2, null);
 
             // MENU
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 28));

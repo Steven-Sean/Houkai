@@ -68,18 +68,12 @@ public final class Player extends Entity {
     
     //--> Untuk dijadikan sprite player saat bergerak
     public void getPlayerImage(){
-        up1 = setup("/player/nu_up_01");
-        up2 = setup("/player/nu_up_02");
-        up3 = setup("/player/nu_up_03");
-        down1 = setup("/player/nu_down_01");
-        down2 = setup("/player/nu_down_02");
-        down3 = setup("/player/nu_down_03");
-        left1 = setup("/player/nu_left_01");
-        left2 = setup("/player/nu_left_02");
-        left3 = setup("/player/nu_left_03");
-        right1 = setup("/player/nu_right_01");
-        right2 = setup("/player/nu_right_02");
-        right3 = setup("/player/nu_right_03");
+        for (int i = 0; i < 3; i++) {
+            up[i] = setup("/player/nu_up_0" + (i+1));
+            down[i] = setup("/player/nu_down_0" + (i+1));
+            left[i] = setup("/player/nu_left_0" + (i+1));
+            right[i] = setup("/player/nu_right_0" + (i+1));
+        }
     }
     
     public void update(){
@@ -206,54 +200,7 @@ public final class Player extends Entity {
     
     //--> Untuk mencetak gambar sesuai dengan urutan sprite sesuai dengan key yang kita tekan
     public void draw(Graphics2D g2){
-        BufferedImage image = null;
-        
-        switch(direction){
-        case "up": //key W
-            if(spriteNum == 1){
-                image = up1;
-            }
-            if(spriteNum == 2){
-                image = up2;
-            }
-            if(spriteNum == 3){
-                image = up3;
-            }
-            break;
-        case "down": //Key S
-            if(spriteNum == 1){
-                image = down1;
-            }
-            if(spriteNum == 2){
-                image = down2;
-            }
-            if(spriteNum == 3){
-                image = down3;
-            }
-            break;
-        case "left": //Key A
-            if(spriteNum == 1){
-                image = left1;
-            }
-            if(spriteNum == 2){
-                image = left2;
-            }
-            if(spriteNum == 3){
-                image = left3;
-            }
-            break;
-        case "right": //Key D
-            if(spriteNum == 1){
-                image = right1;
-            }
-            if(spriteNum == 2){
-                image = right2;
-            }
-            if(spriteNum == 3){
-                image = right3;
-            }
-            break;
-        }
+        BufferedImage image = getImageByDirection(direction);
         
         //--> Untuk mencetak gambar pada frame
         g2.drawImage(image, screenX, screenY, null);
