@@ -65,7 +65,7 @@ public class CollisionChecker {
                 break;
         }
         //--> Untuk pengecekan jika ada salah 1 atau keduanya benar, pemain menabrak petak padat sehingga tidak dapat bergerak ke arah ini
-        if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
+        if (check && gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
             entity.setCollisionOn(true);
         }
     }
@@ -107,7 +107,7 @@ public class CollisionChecker {
                 }
 
                 //--> Untuk memberi tanda jika entity tabrakan
-                if (entitySolid.intersects(itemSolid)) {
+                if (check && entitySolid.intersects(itemSolid)) {
                     if (gp.item[i].isCollidable() == true) {
                         entity.setCollisionOn(true);
                     }
@@ -159,7 +159,7 @@ public class CollisionChecker {
                 }
 
                 //--> Untuk memberi tanda jika entity tabrakan
-                if (entitySolid.intersects(targetSolid)) {
+                if (check && entitySolid.intersects(targetSolid)) {
                     entity.setCollisionOn(true);
                     index = i;
                 }
