@@ -27,7 +27,7 @@ public final class Player extends Entity {
     public final int screenY;
     
     // untuk menunjukkan berapa kunci yg dimiliki pemain saat ini
-    public int haskey = 0;
+    public int keyCount = 0;
     int standCounter = 0;
 
     //Constructor Player
@@ -149,15 +149,15 @@ public final class Player extends Entity {
             case "key":
                 //--> Untuk sound efek ketika key di ambil
                 gp.PlaySE(1);
-                haskey++;
+                keyCount++;
                 gp.item[i] = null ;
                 //--> Untuk mengetahui 
                 gp.ui.showMessage("Anda mendapatkan kunci! ");
                 break;
             case "door":
-                if(haskey > 0){
+                if(keyCount > 0){
                     gp.item[i] = null ;
-                    haskey--;
+                    keyCount--;
                     gp.ui.showMessage("Pintu terbuka!");
                 }
                 else{
@@ -173,10 +173,10 @@ public final class Player extends Entity {
             case "chest":
                 gp.StopMusic();
                 gp.PlaySE(i);
-                if(haskey > 0){
+                if(keyCount > 0){
                     gp.item[i] = null ;
-                    haskey--;
                     gp.ui.gameFinished = true;
+                    keyCount--;
                 }
                 else{
                     gp.ui.showMessage("Kamu perlu kunci untuk membukanya!");

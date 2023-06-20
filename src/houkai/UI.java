@@ -119,7 +119,7 @@ public class UI {
             g2.setFont(arial_40);
             g2.setColor(Color.white);
             //g2.drawImage(keyImage, gp.tileSize/2, gp.tileSize/2, gp.tileSize, null);
-            g2.drawString("Key: " + gp.player.haskey, 30, 100); //--> x adalah 24+48 jadi 72
+            g2.drawString("Key: " + gp.player.keyCount, 30, 100); //--> x adalah 24+48 jadi 72
 
             //--> Untuk menghitung waktu
             playTime += (double)1/60;
