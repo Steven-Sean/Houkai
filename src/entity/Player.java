@@ -6,10 +6,12 @@ package entity;
 
 import houkai.GamePanel;             //--> Mengatur tampilan dan perilaku permainan.
 import houkai.KeyHandler;            //--> Mengatur pemrosesan input tombol kunci dalam permainan.
+import houkai.UtilityTool;
 import java.awt.Graphics2D;          //--> Mengatur transformasi dan kualitas gambar.
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage; //--> Untuk merepresentasikan gambar, dimodifikasi aplikasi Java, membaca, menulis, dan memanipulasi gambar.
 import java.io.IOException;          //--> Untuk pengecualian yg dilemparkan ketika terjadi kesalahan atau gangguan dalam operasi input/output.
+import java.lang.annotation.Target;
 import javax.imageio.ImageIO;        //--> Untuk membaca gambar dari file atau menulis gambar ke file dalam aplikasi Java.
 
 /**
@@ -17,7 +19,7 @@ import javax.imageio.ImageIO;        //--> Untuk membaca gambar dari file atau m
  * @author AsuS
  */
 public class Player extends Entity {
-    GamePanel gp;
+    //GamePanel gp;
     KeyHandler keyH;
     
     //--> Untuk menempatkan karakter pemain ditengah layar dan mengikuti latar belakang saat bergerak
@@ -26,10 +28,12 @@ public class Player extends Entity {
     
     // untuk menunjukkan berapa kunci yg dimiliki pemain saat ini
     public int haskey = 0;
+    int standCounter = 0;
 
     //Constructor Player
     public Player(GamePanel gp, KeyHandler keyH) {
-        this.gp = gp;
+        super(gp);
+        //this.gp = gp;
         this.keyH = keyH;
         
         //--> Untuk mengembalikan titik tengah layar
@@ -57,26 +61,25 @@ public class Player extends Entity {
         worldY = 760 * 3;
         speed = 4;
         direction = "up";
+        //--> Untuk player status
+        maxLife = 6;
+        life = maxLife;
     }
     
     //--> Untuk dijadikan sprite player saat bergerak
     public void getPlayerImage(){
-        try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/nu_up_01.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/nu_up_02.png"));
-            up3 = ImageIO.read(getClass().getResourceAsStream("/player/nu_up_03.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/nu_down_01.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/nu_down_02.png"));
-            down3 = ImageIO.read(getClass().getResourceAsStream("/player/nu_down_03.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/nu_left_01.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/nu_left_02.png"));
-            left3 = ImageIO.read(getClass().getResourceAsStream("/player/nu_left_03.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/nu_right_01.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/nu_right_02.png"));
-            right3 = ImageIO.read(getClass().getResourceAsStream("/player/nu_right_03.png"));
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+        up1 = setup("/player/nu_up_01");
+        up2 = setup("/player/nu_up_02");
+        up3 = setup("/player/nu_up_03");
+        down1 = setup("/player/nu_down_01");
+        down2 = setup("/player/nu_down_02");
+        down3 = setup("/player/nu_down_03");
+        left1 = setup("/player/nu_left_01");
+        left2 = setup("/player/nu_left_02");
+        left3 = setup("/player/nu_left_03");
+        right1 = setup("/player/nu_right_01");
+        right2 = setup("/player/nu_right_02");
+        right3 = setup("/player/nu_right_03");
     }
     
     public void update(){
@@ -100,6 +103,14 @@ public class Player extends Entity {
             //--> Untuk memeriksa tabrakan pada objek
             int objIndex = gp.cChecker.checkObject(this,true);
             pickUpObject(objIndex);
+            
+            //--> Untuk pengecekan tabrakan NPC
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            interacNPC(npcIndex);
+            
+            //--> Untuk pengecekan event
+            //gp.eHandler.checkEvent();
+            gp.keyH.enterPressed = false;
             
             //--> untuk pengecekan jika Collision == false maka player dapat gerak dan sebaliknya
             if(collisionOn == false){
@@ -127,6 +138,12 @@ public class Player extends Entity {
                 }else if(spriteNum == 2){
                     spriteNum = 1;
                 }
+                spriteCounter = 0;
+            }
+        }else{
+            standCounter++;
+            if(standCounter == 20){
+                spriteNum = 1;
                 spriteCounter = 0;
             }
         }
@@ -174,6 +191,15 @@ public class Player extends Entity {
                     gp.ui.showMessage("Kamu perlu kunci untuk membukanya!");
                 }
                 break;
+            }
+        }
+    }
+    
+    public void interacNPC(int i){
+        if(i != 999){
+            if(gp.keyH.enterPressed == true){
+                gp.gameState = gp.dialogueState;
+                gp.npc[i].speak();
             }
         }
     }
@@ -230,7 +256,7 @@ public class Player extends Entity {
         }
         
         //--> Untuk mencetak gambar pada frame
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
     }
     
 }

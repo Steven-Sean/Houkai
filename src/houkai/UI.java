@@ -4,12 +4,15 @@
  */
 package houkai;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
+import object.OBJ_heart;
 import object.OBJ_key;
+import object.superObject;
 
 /**
  *
@@ -17,13 +20,17 @@ import object.OBJ_key;
  */
 public class UI {
     GamePanel gp;
+    Graphics2D g2;
     Font arial_40, arial_80B;
-    BufferedImage keyImage;
+    BufferedImage keyImage, heart_full, heart_half, heart_blank;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
     public boolean gameFinished = false;
-    
+    public String currentDialogue= "";
+    public int commandNum = 0;
+    public int titleScreenState = 0;
+      
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
     
@@ -32,8 +39,14 @@ public class UI {
         //--> Font 
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.PLAIN, 80);
-        OBJ_key key = new OBJ_key();
+        OBJ_key key = new OBJ_key(gp);
         keyImage = key.image;
+        
+        //--> Untuk create HUB object
+        superObject heart = new OBJ_heart(gp); 
+        heart_full = heart.image;
+        heart_half = heart.image2;
+        heart_blank = heart.image3;
     }
     
     public void showMessage(String text){
@@ -43,6 +56,29 @@ public class UI {
     
     //--> Untuk menggambar texs dengan graphics@D
     public void draw(Graphics2D g2){
+        this.g2 = g2;
+        
+        g2.setFont(arial_40);
+        g2.setColor(Color.white);
+        // TITLE STATE
+        if (gp.gameState == gp.titleState){
+            drawTitleScreen();
+        }
+        //--> Untuk play state
+        if (gp.gameState == gp.playState){
+            drawPlayerLife();
+        }
+        //--> Untuk pause game
+        if (gp.gameState == gp.pauseState){
+            drawPlayerLife();
+            drawPauseScreen();
+        }
+        //--> Untuk dialogue state
+        if(gp.gameState == gp.dialogueState){
+            drawPlayerLife();   
+            drawDialogueScreen();
+        }
+        
         if(gameFinished == true){
             //--> Jangan membuat instance class disini
             g2.setFont(arial_40);
@@ -83,7 +119,7 @@ public class UI {
             g2.setFont(arial_40);
             g2.setColor(Color.white);
             //g2.drawImage(keyImage, gp.tileSize/2, gp.tileSize/2, gp.tileSize, null);
-            g2.drawString("x " + gp.player.haskey, 74, 65); //--> x adalah 24+48 jadi 72
+            g2.drawString("Key: " + gp.player.haskey, 30, 100); //--> x adalah 24+48 jadi 72
 
             //--> Untuk menghitung waktu
             playTime += (double)1/60;
@@ -101,5 +137,177 @@ public class UI {
                 }
             }
         }
+    }
+    
+    public void drawPlayerLife(){
+        //gp.player.life = 5;
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        int i = 0;
+        
+        //draw Max life
+        while(i < gp.player.maxLife/2){
+            g2.drawImage(heart_blank, x, y, null);
+            i++;
+            x += gp.tileSize;
+        }
+        
+        //Reset
+        x = gp.tileSize/2;
+        y = gp.tileSize/2;
+        i = 0;
+        
+        //Draw current life
+        while(i < gp.player.life){
+            g2.drawImage(heart_half, x, y, null);
+            i++;
+            if(i < gp.player.life){
+                g2.drawImage(heart_full, x, y,null);
+            }
+            i++;
+            x += gp.tileSize;
+        }
+    }
+    
+    public void drawTitleScreen(){
+        if (titleScreenState == 0){
+            g2.setColor(new Color (6,1,31));
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+            //  TITLE NAME
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+            String text = "Dragon Honkai";
+            int x = getXforCenteredText(text);
+            int y = gp.tileSize*3;
+
+            // SHADOW
+            g2.setColor(Color.gray);
+            g2.drawString(text, x+5, y+5);
+
+            // MAIN utama
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+
+            // DRAGON HONKAI IMAGE 
+            x = gp.screenWidth/2 - (gp.tileSize*2)/2;
+            y += gp.tileSize*3;
+            g2.drawImage(gp.player.down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
+
+            // MENU
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 28));
+
+            text = "NEW GAME";
+            x = getXforCenteredText(text);
+            y += gp.tileSize*4;
+            g2.drawString(text, x, y);
+            
+            if(commandNum == 0){
+                g2.drawString(">", x-gp.tileSize, y);
+            }
+
+            text = "LOAD GAME";
+            x = getXforCenteredText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if(commandNum == 1){
+                g2.drawString(">", x-gp.tileSize, y);
+            }
+
+            text = "QUIT";
+            x = getXforCenteredText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if(commandNum == 2){
+                g2.drawString(">", x-gp.tileSize, y);
+            }
+        }else if (titleScreenState == 1){
+            //  CLASS SELECTION STRING
+            g2.setColor(Color.white);
+            g2.setFont(g2.getFont().deriveFont(42F));
+            
+            String text = "Select Your Mode!";
+            int x = getXforCenteredText(text);
+            int y = gp.tileSize*3;
+            g2.drawString(text, x, y);
+            
+            text = "Easy";
+            x = getXforCenteredText(text);
+            y += gp.tileSize*3;
+            g2.drawString(text, x, y);
+            if (commandNum==0){
+                g2.drawString(">", x-gp.tileSize, y);
+            }
+            
+              text = "Normal";
+            x = getXforCenteredText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if (commandNum==1){
+                g2.drawString(">", x-gp.tileSize, y);
+            }
+            
+              text = "Hard";
+            x = getXforCenteredText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if (commandNum==2){
+                g2.drawString(">", x-gp.tileSize, y);
+            }
+            
+              text = "Back";
+            x = getXforCenteredText(text);
+            y += gp.tileSize*2;
+            g2.drawString(text, x, y);
+            if (commandNum==3){
+                g2.drawString(">", x-gp.tileSize, y);
+            }   
+        }
+    }
+    
+    public void drawPauseScreen(){  
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,80F));
+        String text = "PAUSED" ;
+        int x = getXforCenteredText(text);  // ini untuk teks yang terpusat
+        int y = gp.screenHeight/2;
+        
+        g2.drawString(text, x, y);
+    }
+    
+    public void drawDialogueScreen(){
+        //Window
+        int x = gp.tileSize*2;
+        int y = gp.tileSize/2;
+        //--> Untuk mengatur posisi dialog screen 
+        int width = gp.screenWidth - (gp.tileSize*4);
+        int height = gp.tileSize * 4;
+        
+        drawSubWindow(x, y, width, height);
+        
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28F));
+        x += gp.tileSize;
+        y += gp.tileSize;
+        
+        for(String line : currentDialogue.split("\n")){
+            g2.drawString(line, x, y);
+            y += 40;
+        }
+    }
+    
+    public void drawSubWindow(int x, int y, int width, int height){
+        //--> Untuk mengatur kecerahan window
+        Color c = new Color(0,0,210);
+        g2.setColor(c);
+        g2.fillRoundRect(x, y, width, height, 35, 35);
+    
+        c = new Color(225,225,225);
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
+    }
+    
+    public int getXforCenteredText (String text){
+        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int x = gp.screenWidth/2 - length/2;
+        return x;
     }
 }

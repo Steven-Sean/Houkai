@@ -4,6 +4,7 @@
  */
 package object;
 
+import houkai.GamePanel;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
@@ -12,10 +13,13 @@ import javax.imageio.ImageIO;
  * @author TOSHIBA
  */
 public class OBJ_door extends superObject {
-      public OBJ_door(){
+    GamePanel gp;
+    public OBJ_door(GamePanel gp){
+        this.gp = gp;  
         name = "door";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/tiles/door.png"));
+            uTool.scaleImage(image, gp.tileSize, gp.tileSize);
         }catch(IOException e){
             e.printStackTrace();
         }

@@ -5,6 +5,7 @@
 package houkai.tile;
 
 import houkai.GamePanel;          //--> Mengatur tampilan dan perilaku permainan.
+import houkai.UtilityTool;
 import java.awt.Graphics2D;       //--> Mengatur transformasi dan kualitas gambar.
 import java.io.BufferedReader;    //--> Untuk membaca data dari aliran input dengan buffering, yg memungkinkan pembacaan data lebih efisien.
 import java.io.IOException;       //--> Untuk pengecualian yg dilemparkan ketika terjadi kesalahan atau gangguan dalam operasi input/output.
@@ -31,171 +32,80 @@ public class TileManager {
     
     //--> Untuk Mengambil gambar
     public void getTileImage(){
-        try{
-           // ===== Road =====
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/road_1.png"));
-
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/road_2.png"));
-            tile[1].collision = true; //--> Untuk petak yg tidak bisa tabrak atau di tembus
-
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/road_3.png"));
-            tile[2].collision = true;
-
-            // ===== Base Map =====
-            tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/map.png"));
-            tile[3].collision = true; //--> Untuk petak yg tidak bisa tabrak atau di tembus
-
-            // ===== Wall =====
-            tile[4] = new Tile(); //top
-            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall_top.png"));
-            tile[4].collision = true;
-
-            tile[5] = new Tile(); //down
-            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall_down.png"));
-            tile[5].collision = true;
-
-            tile[6] = new Tile(); //left
-            tile[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall_left.png"));
-            tile[6].collision = true;
-
-            tile[7] = new Tile(); //right
-            tile[7].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall_right.png"));
-            tile[7].collision = true;
-
-            // ===== Corner Wall (1) =====
-            tile[8] = new Tile(); //left_down
-            tile[8].image = ImageIO.read(getClass().getResourceAsStream("/tiles/corner_left_down.png"));
-            tile[8].collision = true;
-
-            tile[9] = new Tile(); //right_down
-            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/tiles/corner_right_down.png"));
-            tile[9].collision = true;
-
-            tile[10] = new Tile(); //left_top
-            tile[10].image = ImageIO.read(getClass().getResourceAsStream("/tiles/corner_left_top.png"));
-            tile[10].collision = true;
-
-            tile[11] = new Tile(); //right_top
-            tile[11].image = ImageIO.read(getClass().getResourceAsStream("/tiles/corner_right_top.png"));
-            tile[11].collision = true;
-
-            // ===== Corner Wall (2) =====
-            tile[12] = new Tile(); //left_down
-            tile[12].image = ImageIO.read(getClass().getResourceAsStream("/tiles/c_down_left.png"));
-            tile[12].collision = true;
-
-            tile[13] = new Tile(); //right_down
-            tile[13].image = ImageIO.read(getClass().getResourceAsStream("/tiles/c_down_right.png"));
-            tile[13].collision = true;
-
-            tile[14] = new Tile(); //left_top
-            tile[14].image = ImageIO.read(getClass().getResourceAsStream("/tiles/c_top_left.png"));
-            tile[14].collision = true;
-
-            tile[15] = new Tile(); //right_top
-            tile[15].image = ImageIO.read(getClass().getResourceAsStream("/tiles/c_top_right.png"));
-            tile[15].collision = true;
-
-            // ===== Pillar =====
-            tile[16] = new Tile(); //top
-            tile[16].image = ImageIO.read(getClass().getResourceAsStream("/tiles/pillar_top.png"));
-            tile[16].collision = true;
-
-            tile[17] = new Tile(); //down
-            tile[17].image = ImageIO.read(getClass().getResourceAsStream("/tiles/pillar_down.png"));
-            tile[17].collision = true;
-
-            tile[18] = new Tile(); //left
-            tile[18].image = ImageIO.read(getClass().getResourceAsStream("/tiles/pillar_left.png"));
-            tile[18].collision = true;
-
-            tile[19] = new Tile(); //right
-            tile[19].image = ImageIO.read(getClass().getResourceAsStream("/tiles/pillar_right.png"));
-            tile[19].collision = true;
+        // ===== Road =====
+        setup(0,"road_1",false); //--> Untuk petak yg true bisa di tembus
+        setup(1,"road_2",true);  //--> Untuk petak yg false tidak bisa di tembus
+        setup(2,"road_3",true); 
             
-            // ===== Underground (1) =====
-            tile[20] = new Tile(); //top
-            tile[20].image = ImageIO.read(getClass().getResourceAsStream("/tiles/w_top.png"));
-            tile[20].collision = true;
+        // ===== Base Map =====
+        setup(3,"map",true); 
             
-            tile[21] = new Tile(); //left
-            tile[21].image = ImageIO.read(getClass().getResourceAsStream("/tiles/w_left.png"));
-            tile[21].collision = true;
+        // ===== Wall =====
+        setup(4,"wall_top",true); //top
+        setup(5,"wall_down",true); //down
+        setup(6,"wall_left",true); //left
+        setup(7,"wall_right",true); //right
+
+        // ===== Corner Wall (1) =====
+        setup(8,"corner_left_down",true); //left_down
+        setup(9,"corner_right_down",true); //right_down
+        setup(10,"corner_left_top",true); //left_top
+        setup(11,"corner_right_top",true); //right_top
+
+        // ===== Corner Wall (2) =====
+        setup(12,"c_down_left",true); //left_down
+        setup(13,"c_down_right",true); //right_down
+        setup(14,"c_top_left",true); //left_down
+        setup(15,"c_top_right",true); //right_top
+
+        // ===== Pillar =====
+        setup(16,"pillar_top",true); //top
+        setup(17,"pillar_down",true); //down 
+        setup(18,"pillar_left",true); //left
+        setup(19,"pillar_right",true); //right
             
-            tile[22] = new Tile(); //right
-            tile[22].image = ImageIO.read(getClass().getResourceAsStream("/tiles/w_right.png"));
-            tile[22].collision = true;
+        // ===== Underground (1) =====
+        setup(20,"w_top",true); //top
+        setup(21,"w_left",true); //left
+        setup(22,"w_right",true); //right
             
-            // ===== Underground (2) =====
-            tile[23] = new Tile(); //top leff
-            tile[23].image = ImageIO.read(getClass().getResourceAsStream("/tiles/w_top_left_corner.png"));
-            tile[23].collision = true;
+        // ===== Underground (2) =====
+        setup(23,"w_top_left_corner",true); //top_left
+        setup(24,"w_top_right_corner",true); //top_right
+        setup(25,"w_down_left_corner",true); //down_left
+        setup(26,"w_down_right_corner",true); //down_right
             
-            tile[24] = new Tile(); //top right
-            tile[24].image = ImageIO.read(getClass().getResourceAsStream("/tiles/w_top_right_corner.png"));
-            tile[24].collision = true;
+        // ===== Underground (3) =====
+        setup(27,"w_mid_left",true); //left 
+        setup(28,"w_mid_right",true); //right
+        setup(29,"w_mid_left-2",true); //left_2
+        setup(30,"w_mid_right_2",true); //right_2
             
-            tile[25] = new Tile(); //down left
-            tile[25].image = ImageIO.read(getClass().getResourceAsStream("/tiles/w_down_left_corner.png"));
-            tile[25].collision = true;
+        // ===== Ladder =====
+        setup(31,"ladder",false);
             
-            tile[26] = new Tile(); //down right
-            tile[26].image = ImageIO.read(getClass().getResourceAsStream("/tiles/w_down_right_corner.png"));
-            tile[26].collision = true;
+        // ===== Stone =====
+        setup(32,"stone",true); 
             
-            // ===== Underground (3) =====
+        // ===== Lamp =====
+        setup(33,"lamp_1",true);
+        setup(34,"lamp_2",true);
+        setup(35,"lamp_3",true);
+        setup(36,"lamp_4",true);
             
-            tile[27] = new Tile(); //left
-            tile[27].image = ImageIO.read(getClass().getResourceAsStream("/tiles/w_mid_left.png"));
-            tile[27].collision = true;
-            
-            tile[28] = new Tile(); //right
-            tile[28].image = ImageIO.read(getClass().getResourceAsStream("/tiles/w_mid_right.png"));
-            tile[28].collision = true;
-            
-            tile[29] = new Tile(); //left 2
-            tile[29].image = ImageIO.read(getClass().getResourceAsStream("/tiles/w_mid_left-2.png"));
-            tile[29].collision = true;
-            
-            tile[30] = new Tile(); //right 2
-            tile[30].image = ImageIO.read(getClass().getResourceAsStream("/tiles/w_mid_right_2.png"));
-            tile[30].collision = true;
-            
-            // ===== Ladder =====
-            tile[31] = new Tile(); 
-            tile[31].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ladder.png"));
-            
-            // ===== Stone =====
-            tile[32] = new Tile(); //right 2
-            tile[32].image = ImageIO.read(getClass().getResourceAsStream("/tiles/stone.png"));
-            tile[32].collision = true;
-            
-            // ===== Lamp =====
-            tile[33] = new Tile(); 
-            tile[33].image = ImageIO.read(getClass().getResourceAsStream("/tiles/lamp_1.png"));
-            tile[33].collision = true;
-            
-            tile[34] = new Tile(); 
-            tile[34].image = ImageIO.read(getClass().getResourceAsStream("/tiles/lamp_2.png"));
-            tile[34].collision = true;
-            
-            tile[35] = new Tile(); 
-            tile[35].image = ImageIO.read(getClass().getResourceAsStream("/tiles/lamp_3.png"));
-            tile[35].collision = true;
-            
-            tile[36] = new Tile(); 
-            tile[36].image = ImageIO.read(getClass().getResourceAsStream("/tiles/lamp_4.png"));
-            tile[36].collision = true;
-            
-            // ===== chest =====
-            tile[37] = new Tile(); 
-            tile[37].image = ImageIO.read(getClass().getResourceAsStream("/tiles/chest_1.png"));
-            tile[37].collision = true;
+        // ===== chest =====
+        setup(37,"chest_1",true);
            
+    }
+    
+    public void setup(int index, String imageName, boolean collision){
+        UtilityTool uTool = new UtilityTool ();
+        try {
+            tile[index] = new Tile();
+            tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imageName + ".png"));
+            tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
+            tile[index].collision = collision;
+            
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -251,7 +161,7 @@ public class TileManager {
                worldY - gp.tileSize < gp.player.worldY + gp.player.screenY){
                 
                 //--> Untuk Mencetak Gambar Map 
-                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+                g2.drawImage(tile[tileNum].image, screenX, screenY, null);
             }
             worldCol++;
             
