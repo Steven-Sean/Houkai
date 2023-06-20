@@ -15,7 +15,8 @@ import javax.imageio.ImageIO;
 public class Heart extends Item { 
     GamePanel gp;
     
-    public Heart(GamePanel gp){   
+    public Heart(GamePanel gp, int worldX, int worldY){  
+        super(gp, worldX, worldY); 
         this.gp = gp;
         name = "heart";
         try {

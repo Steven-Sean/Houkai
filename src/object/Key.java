@@ -14,7 +14,8 @@ import javax.imageio.ImageIO;
  */
 public class Key extends Item { // class ini untuk memperluas superobject dan konstraktor
     GamePanel gp;
-    public Key(GamePanel gp){        
+    public Key(GamePanel gp, int worldX, int worldY){ 
+        super(gp, worldX, worldY);
         this.gp = gp;
         name = "key";
         try {

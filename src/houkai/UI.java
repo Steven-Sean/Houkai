@@ -39,14 +39,14 @@ public class UI {
         //--> Font 
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.PLAIN, 80);
-        Key key = new Key(gp);
-        keyImage = key.image[0];
+        Key key = new Key(gp, 0, 0);
+        keyImage = key.getFirstImage();
         
         //--> Untuk create HUB object
-        Item heart = new Heart(gp); 
-        heart_full = heart.image[0];
-        heart_half = heart.image[1];
-        heart_blank = heart.image[2];
+        Item heart = new Heart(gp, 0, 0); 
+        heart_full = heart.getImage()[0];
+        heart_half = heart.getImage()[1];
+        heart_blank = heart.getImage()[2];
     }
     
     public void showMessage(String text){

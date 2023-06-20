@@ -74,13 +74,14 @@ public class CollisionChecker {
         for (int i=0; i<gp.item.length; i++){
             if (gp.item[i] != null){
                 Rectangle entitySolid = (Rectangle) entity.getSolidArea().clone();
+                Rectangle itemSolid = (Rectangle) gp.item[i].getSolidArea().clone();
                 //--> Untuk mendapatkan entity petaknya padat
                 entitySolid.x = entity.getWorldX() + entitySolid.x;
                 entitySolid.y = entity.getWorldY() + entitySolid.y;
                 
                 //--> Untuk mendapatkan object petaknya padat
-                gp.item[i].solidArea.x = gp.item[i].worldX + gp.item[i].solidArea.x;
-                gp.item[i].solidArea.y = gp.item[i].worldY + gp.item[i].solidArea.y;
+                itemSolid.x = gp.item[i].getWorldX() + itemSolid.x;
+                itemSolid.y = gp.item[i].getWorldY() + itemSolid.y;
 
                 //--> Untuk menentukan arah entity
                 boolean check = false;
@@ -104,18 +105,14 @@ public class CollisionChecker {
                 }
                 
                 //--> Untuk memberi tanda jika entity tabrakan
-                if (entitySolid.intersects(gp.item[i].solidArea)){
-                    if (gp.item[i].collision == true){
+                if (entitySolid.intersects(itemSolid)){
+                    if (gp.item[i].isCollidable() == true){
                         entity.setCollisionOn(true);
                     }
                     if (player == true){
                         index = i;
                     }
                 }
-                
-                //--> Untuk mengatur ulang solidArea entity dan object
-                gp.item[i].solidArea.x = gp.item[i].solidAreaDefaultX;
-                gp.item[i].solidArea.y = gp.item[i].solidAreaDefaultY;
             }
         }
         return index;

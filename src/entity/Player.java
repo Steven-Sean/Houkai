@@ -143,7 +143,7 @@ public final class Player extends Entity {
     public void pickUpObject (int i){
         //--> Jika index bukan 999 maka kita telah menyentuh suatu object
         if(i!=999){ 
-            String objectName = gp.item[i].name;
+            String objectName = gp.item[i].getName();
             
             switch (objectName){
             case "key":

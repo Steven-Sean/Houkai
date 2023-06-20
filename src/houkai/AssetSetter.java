@@ -23,44 +23,26 @@ public class AssetSetter {
     
     public void setObject(){
         //===== Keys =====
-        gp.item[0] = new Key(gp);
-        gp.item[0].worldX = 37 * gp.tileSize;
-        gp.item[0].worldY = 46 * gp.tileSize; 
+        gp.item[0] = new Key(gp, 37, 46);
         
-        gp.item[1] = new Key(gp);
-        gp.item[1].worldX = 36 * gp.tileSize;
-        gp.item[1].worldY = 46 * gp.tileSize; 
+        gp.item[1] = new Key(gp, 36, 46);
         
-        gp.item[2] = new Key(gp);
-        gp.item[2].worldX = 35 * gp.tileSize;
-        gp.item[2].worldY = 46 * gp.tileSize; 
+        gp.item[2] = new Key(gp, 35, 46);
         
-        gp.item[3] = new Key(gp);
-        gp.item[3].worldX = 34 * gp.tileSize;
-        gp.item[3].worldY = 46 * gp.tileSize; 
+        gp.item[3] = new Key(gp, 34, 46);
         
         //===== Doors =====
-        gp.item[4] = new Door(gp);
-        gp.item[4].worldX = 5 * gp.tileSize;
-        gp.item[4].worldY = 6 * gp.tileSize;
+        gp.item[4] = new Door(gp, 5, 6);
         
-        gp.item[5] = new Door(gp);
-        gp.item[5].worldX = 32 * gp.tileSize;
-        gp.item[5].worldY = 30 * gp.tileSize;
+        gp.item[5] = new Door(gp, 32, 30);
         
         //===== chest =====
-        gp.item[6] = new Chest(gp);
-        gp.item[6].worldX = 5 * gp.tileSize;
-        gp.item[6].worldY = 3 * gp.tileSize;  
+        gp.item[6] = new Chest(gp, 5, 3);
         
-        gp.item[7] = new Chest(gp);
-        gp.item[7].worldX = 32 * gp.tileSize;
-        gp.item[7].worldY = 27 * gp.tileSize;  
+        gp.item[7] = new Chest(gp, 32, 27);
     
         //===== Boots =====
-        gp.item[8] = new Boots(gp);
-        gp.item[8].worldX = 38 * gp.tileSize;
-        gp.item[8].worldY = 40 * gp.tileSize;
+        gp.item[8] = new Boots(gp, 38, 40);
     }
     
 

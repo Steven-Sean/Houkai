@@ -15,15 +15,18 @@ import java.awt.image.BufferedImage;
  * @author TOSHIBA
  */
 public class Item { // ini jadi class induk dari segala segala class objek
-    public BufferedImage[] image = new BufferedImage[3];
-    public String name;
-    public boolean collision = false ;
-    public int worldX, worldY;
+    BufferedImage[] image = new BufferedImage[3];
+    String name;
+    boolean collision = false ;
+    int worldX, worldY;
     //--> agar objek menjadi solid area atau seluruh petak objeknya padat
-    public Rectangle solidArea = new Rectangle (0,0,48,48); 
-    public int solidAreaDefaultX = 0;
-    public int solidAreaDefaultY = 0;
+    Rectangle solidArea = new Rectangle (0,0,48,48); 
     UtilityTool uTool = new UtilityTool();
+
+    public Item(GamePanel gp, int worldX, int worldY) {
+        this.worldX = worldX * gp.tileSize;
+        this.worldY = worldY * gp.tileSize;
+    }
 
     public void draw(Graphics2D g2, GamePanel gp){ // untuk menggambat
         int screenX = worldX - gp.player.getWorldX() + gp.player.screenX;
@@ -37,5 +40,33 @@ public class Item { // ini jadi class induk dari segala segala class objek
             //--> Untuk Mencetak Gambar Map 
             g2.drawImage(image[0], screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
+    }
+    
+    public BufferedImage getFirstImage() {
+        return image[0];
+    }
+
+    public BufferedImage[] getImage() {
+        return image;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Rectangle getSolidArea() {
+        return solidArea;
+    }
+
+    public int getWorldX() {
+        return worldX;
+    }
+
+    public int getWorldY() {
+        return worldY;
+    }
+
+    public boolean isCollidable() {
+        return collision;
     }
 }

@@ -14,7 +14,8 @@ import javax.imageio.ImageIO;
  */
 public class Chest extends Item {
     GamePanel gp;
-      public Chest(GamePanel gp){
+      public Chest(GamePanel gp, int worldX, int worldY){
+        super(gp, worldX, worldY);
         this.gp = gp;
         name = "chest";
         try {
