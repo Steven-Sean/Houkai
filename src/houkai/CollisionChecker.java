@@ -5,6 +5,7 @@
 package houkai;
 
 import entity.Entity;
+import java.awt.Rectangle;
 /**
  *
  * @author AsuS
@@ -20,10 +21,10 @@ public class CollisionChecker {
     //--> Untuk pengecekan ubin
     public void checkTile(Entity entity){
         //--> Untuk pengecekan berdasarkan koordinat Solid Area (daerah yg padat player)
-        int entityLeftWorldX = entity.worldX + entity.solidArea.x; //kiriX = 8
-        int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width; //kananX = 16
-        int entityTopWorldY = entity.worldY + entity.solidArea.y; //atasY = 32
-        int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height; //bawahY = 32
+        int entityLeftWorldX = entity.getWorldX() + entity.getSolidArea().x; //kiriX = 8
+        int entityRightWorldX = entity.getWorldX() + entity.getSolidArea().x + entity.getSolidArea().width; //kananX = 16
+        int entityTopWorldY = entity.getWorldY() + entity.getSolidArea().y; //atasY = 32
+        int entityBottomWorldY = entity.getWorldY() + entity.getSolidArea().y + entity.getSolidArea().height; //bawahY = 32
         
         //--> Untuk mencari Nomor Col dan Row didapatkan dari koordinat diatas 
         int entityLeftCol = entityLeftWorldX/gp.tileSize;
@@ -31,115 +32,90 @@ public class CollisionChecker {
         int entityTopRow = entityTopWorldY/gp.tileSize;
         int entityBottomRow = entityBottomWorldY/gp.tileSize;
         
-        int tileNum1, tileNum2;
+        int tileNum1 = 0, tileNum2 = 0;
         
         //--> Untuk memeriksa arah entity mau kemana
-        switch(entity.direction){
+        boolean check = false;
+        switch(entity.getDirection()){
         case "up":
-            entityTopRow = (entityTopWorldY - entity.speed)/gp.tileSize;
+            entityTopRow = (entityTopWorldY - entity.getSpeed())/gp.tileSize;
             tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
             tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
-            
-            //--> Untuk pengecekan jika ada salah 1 atau keduanya benar, pemain menabrak petak padat sehingga tidak dapat bergerak ke arah ini
-            if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
-                entity.collisionOn = true;
-            }
+            check = true;
             break;
-            
         case "down":
-            entityBottomRow = (entityBottomWorldY + entity.speed)/gp.tileSize;
+            entityBottomRow = (entityBottomWorldY + entity.getSpeed())/gp.tileSize;
             tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
             tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
-            if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
-                entity.collisionOn = true;
-            }
+            check = true;
             break;
         case "left":
-            entityLeftCol = (entityLeftWorldX + entity.speed)/gp.tileSize;
+            entityLeftCol = (entityLeftWorldX + entity.getSpeed())/gp.tileSize;
             tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
             tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
-            if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
-                entity.collisionOn = true;
-            }
+            check = true;
             break;
         case "right":
-            entityRightCol = (entityRightWorldX - entity.speed)/gp.tileSize;
+            entityRightCol = (entityRightWorldX - entity.getSpeed())/gp.tileSize;
             tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
             tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
-            if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
-                entity.collisionOn = true;
-            }
+            check = true;
             break;
+        }
+        //--> Untuk pengecekan jika ada salah 1 atau keduanya benar, pemain menabrak petak padat sehingga tidak dapat bergerak ke arah ini
+        if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
+            entity.setCollisionOn(true);
         }
     }
         
     public int checkObject(Entity entity, boolean player){
         int index = 999;
         
-        for (int i=0; i<gp.obj.length; i++){
-            if (gp.obj[i] != null){
+        for (int i=0; i<gp.item.length; i++){
+            if (gp.item[i] != null){
+                Rectangle entitySolid = (Rectangle) entity.getSolidArea().clone();
                 //--> Untuk mendapatkan entity petaknya padat
-                entity.solidArea.x = entity.worldX + entity.solidArea.x;
-                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+                entitySolid.x = entity.getWorldX() + entitySolid.x;
+                entitySolid.y = entity.getWorldY() + entitySolid.y;
                 
                 //--> Untuk mendapatkan object petaknya padat
-                gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
-                gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
+                gp.item[i].solidArea.x = gp.item[i].worldX + gp.item[i].solidArea.x;
+                gp.item[i].solidArea.y = gp.item[i].worldY + gp.item[i].solidArea.y;
 
                 //--> Untuk menentukan arah entity
-                switch (entity.direction){ 
+                boolean check = false;
+                switch (entity.getDirection()){ 
                     case "up":
-                        entity.solidArea.y -= entity.speed;
-                        //--> Untuk memberi tanda jika entity tabrakan
-                        if (entity.solidArea.intersects(gp.obj[i].solidArea)){
-                            if (gp.obj[i].collision == true){
-                                entity.collisionOn = true;
-                            }
-                            if (player == true){
-                                index = i;
-                            }
-                        }
+                        entitySolid.y -= entity.getSpeed();
+                        check = true;
                         break;
                     case "down":
-                        entity.solidArea.y += entity.speed;
-                         if (entity.solidArea.intersects(gp.obj[i].solidArea)){
-                            if (gp.obj[i].collision == true){
-                                entity.collisionOn = true;
-                            }
-                            if (player == true){
-                                index = i;
-                            }
-                        }
+                        entitySolid.y += entity.getSpeed();
+                        check = true;
                         break;
                     case "left":
-                        entity.solidArea.x -= entity.speed;
-                         if (entity.solidArea.intersects(gp.obj[i].solidArea)){
-                            if (gp.obj[i].collision == true){
-                                entity.collisionOn = true;
-                            }
-                            if (player == true){
-                                index = i;
-                            }
-                        }
+                        entitySolid.x -= entity.getSpeed();
+                        check = true;
                         break;
                     case "right":
-                        entity.solidArea.x += entity.speed;
-                         if (entity.solidArea.intersects(gp.obj[i].solidArea)){
-                            if (gp.obj[i].collision == true){
-                                entity.collisionOn = true;
-                            }
-                            if (player == true){
-                                index = i;
-                            }
-                        }
+                        entitySolid.x += entity.getSpeed();
+                        check = true;
                         break;
                 }
                 
+                //--> Untuk memberi tanda jika entity tabrakan
+                if (entitySolid.intersects(gp.item[i].solidArea)){
+                    if (gp.item[i].collision == true){
+                        entity.setCollisionOn(true);
+                    }
+                    if (player == true){
+                        index = i;
+                    }
+                }
+                
                 //--> Untuk mengatur ulang solidArea entity dan object
-                entity.solidArea.x = entity.solidAreaDefaultX;
-                entity.solidArea.y = entity.solidAreaDefaultY;
-                gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
-                gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
+                gp.item[i].solidArea.x = gp.item[i].solidAreaDefaultX;
+                gp.item[i].solidArea.y = gp.item[i].solidAreaDefaultY;
             }
         }
         return index;
@@ -151,98 +127,78 @@ public class CollisionChecker {
         
         for (int i=0; i<target.length; i++){
             if (target[i] != null){
+                Rectangle entitySolid = (Rectangle) entity.getSolidArea().clone();
+                Rectangle targetSolid = (Rectangle) target[i].getSolidArea().clone();
+                
                 //--> Untuk mendapatkan entity petaknya padat
-                entity.solidArea.x = entity.worldX + entity.solidArea.x;
-                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+                entitySolid.x = entity.getWorldX() + entitySolid.x;
+                entitySolid.y = entity.getWorldY() + entitySolid.y;
                 
                 //--> Untuk mendapatkan object petaknya padat
-                target[i].solidArea.x = target[i].worldX + target[i].solidArea.x;
-                target[i].solidArea.y = target[i].worldY + target[i].solidArea.y;
+                targetSolid.x = target[i].getWorldX() + targetSolid.x;
+                targetSolid.y = target[i].getWorldY() + targetSolid.y;
 
                 //--> Untuk menentukan arah entity
-                switch (entity.direction){ 
+                boolean check = false;
+                switch (entity.getDirection()){ 
                     case "up":
-                        entity.solidArea.y -= entity.speed;
-                        //--> Untuk memberi tanda jika entity tabrakan
-                        if (entity.solidArea.intersects(target[i].solidArea)){
-                            entity.collisionOn = true;
-                            index = i;
-                        }
+                        entitySolid.y -= entity.getSpeed();
+                        check = true;
                         break;
                     case "down":
-                        entity.solidArea.y += entity.speed;
-                        if (entity.solidArea.intersects(target[i].solidArea)){
-                            entity.collisionOn = true;
-                            index = i;
-                        }
+                        entitySolid.y += entity.getSpeed();
+                        check = true;
                         break;
                     case "left":
-                        entity.solidArea.x -= entity.speed;
-                        if (entity.solidArea.intersects(target[i].solidArea)){
-                            entity.collisionOn = true;
-                            index = i;
-                        }
+                        entitySolid.x -= entity.getSpeed();
+                        check = true;
                         break;
                     case "right":
-                        entity.solidArea.x += entity.speed;
-                        if (entity.solidArea.intersects(target[i].solidArea)){
-                            entity.collisionOn = true;
-                            index = i;
-                        }
+                        entitySolid.x += entity.getSpeed();
+                        check = true;
                         break;
                 }
                 
-                //--> Untuk mengatur ulang solidArea entity dan object
-                entity.solidArea.x = entity.solidAreaDefaultX;
-                entity.solidArea.y = entity.solidAreaDefaultY;
-                target[i].solidArea.x = target[i].solidAreaDefaultX;
-                target[i].solidArea.y = target[i].solidAreaDefaultY;
+                //--> Untuk memberi tanda jika entity tabrakan
+                if (entitySolid.intersects(targetSolid)){
+                    entity.setCollisionOn(true);
+                    index = i;
+                }
             }
         }
         return index;
     }
     public void checkPlayer(Entity entity){
+        Rectangle entitySolid = (Rectangle) entity.getSolidArea().clone();
+        Rectangle playerSolid = (Rectangle) gp.player.getSolidArea().clone();
         //--> Untuk mendapatkan entity petaknya padat
-        entity.solidArea.x = entity.worldX + entity.solidArea.x;
-        entity.solidArea.y = entity.worldY + entity.solidArea.y;
+        entitySolid.x = entity.getWorldX() + entitySolid.x;
+        entitySolid.y = entity.getWorldY() + entitySolid.y;
                 
         //--> Untuk mendapatkan object petaknya padat
-        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
-        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+        playerSolid.x = gp.player.getWorldX() + playerSolid.x;
+        playerSolid.y = gp.player.getWorldY() + playerSolid.y;
 
         //--> Untuk menentukan arah entity
-        switch (entity.direction){ 
+        boolean check = false;
+        switch (entity.getDirection()){ 
             case "up":
-                entity.solidArea.y -= entity.speed;
-                //--> Untuk memberi tanda jika entity tabrakan
-                if (entity.solidArea.intersects(gp.player.solidArea)){
-                    entity.collisionOn = true;
-                }
-            break;
+                entitySolid.y -= entity.getSpeed();
+                break;
             case "down":
-                entity.solidArea.y += entity.speed;
-                if (entity.solidArea.intersects(gp.player.solidArea)){
-                    entity.collisionOn = true;
-                }
-            break;
+                entitySolid.y += entity.getSpeed();
+                break;
             case "left":
-                entity.solidArea.x -= entity.speed;
-                if (entity.solidArea.intersects(gp.player.solidArea)){
-                    entity.collisionOn = true;
-                }
-            break;
+                entitySolid.x -= entity.getSpeed();
+                break;
             case "right":
-                entity.solidArea.x += entity.speed;
-                if (entity.solidArea.intersects(gp.player.solidArea)){
-                    entity.collisionOn = true;
-                }
-            break;
+                entitySolid.x += entity.getSpeed();
+                break;
         }
-                
-        //--> Untuk mengatur ulang solidArea entity dan object
-        entity.solidArea.x = entity.solidAreaDefaultX;
-        entity.solidArea.y = entity.solidAreaDefaultY;
-        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
-        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+        
+        //--> Untuk memberi tanda jika entity tabrakan
+        if (check && entitySolid.intersects(playerSolid)){
+            entity.setCollisionOn(true);
+        }
     }
 }

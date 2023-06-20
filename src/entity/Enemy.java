@@ -12,8 +12,8 @@ import java.util.Random;
  * @author AsuS
  */
 public final class Enemy extends Entity{
-    public Enemy(GamePanel gp){
-        super(gp);
+    public Enemy(GamePanel gp, int worldX, int worldY){
+        super(gp, worldX, worldY);
         direction = "down";
         speed = 1;
         getImage();

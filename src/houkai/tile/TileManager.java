@@ -151,14 +151,14 @@ public class TileManager {
             //--> Untuk player agar berada pada posisi tengah dan menampilkan map sesuai ukuran screen 
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
-            int screenX = worldX - gp.player.worldX + gp.player.screenX;
-            int screenY = worldY - gp.player.worldY + gp.player.screenY ;
+            int screenX = worldX - gp.player.getWorldX() + gp.player.screenX;
+            int screenY = worldY - gp.player.getWorldY() + gp.player.screenY;
             
             //--> berfungsi untuk menggambar tiles disekitar player saja jadi tidak melebihi screen
-            if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && 
-               worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-               worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-               worldY - gp.tileSize < gp.player.worldY + gp.player.screenY){
+            if (worldX + gp.tileSize > gp.player.getWorldX() - gp.player.screenX &&
+                worldX - gp.tileSize < gp.player.getWorldX() + gp.player.screenX &&
+                worldY + gp.tileSize > gp.player.getWorldY() - gp.player.screenY &&
+                worldY - gp.tileSize < gp.player.getWorldY() + gp.player.screenY) {
                 
                 //--> Untuk Mencetak Gambar Map 
                 g2.drawImage(tile[tileNum].image, screenX, screenY, null);

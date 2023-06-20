@@ -146,20 +146,20 @@ public final class Player extends Entity {
     public void pickUpObject (int i){
         //--> Jika index bukan 999 maka kita telah menyentuh suatu object
         if(i!=999){ 
-            String objectName = gp.obj[i].name;
+            String objectName = gp.item[i].name;
             
             switch (objectName){
             case "key":
                 //--> Untuk sound efek ketika key di ambil
                 gp.PlaySE(1);
                 haskey++;
-                gp.obj[i] = null ;
+                gp.item[i] = null ;
                 //--> Untuk mengetahui 
                 gp.ui.showMessage("Anda mendapatkan kunci! ");
                 break;
             case "door":
                 if(haskey > 0){
-                    gp.obj[i] = null ;
+                    gp.item[i] = null ;
                     haskey--;
                     gp.ui.showMessage("Pintu terbuka!");
                 }
@@ -170,14 +170,14 @@ public final class Player extends Entity {
             case "boots":
                 //--> Untuk menambah kecepatan player
                 speed += 1;
-                gp.obj[i] = null;
+                gp.item[i] = null;
                 gp.ui.showMessage("Speed up!");
                 break;
             case "chest":
                 gp.StopMusic();
                 gp.PlaySE(i);
                 if(haskey > 0){
-                    gp.obj[i] = null ;
+                    gp.item[i] = null ;
                     haskey--;
                     gp.ui.gameFinished = true;
                 }

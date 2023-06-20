@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     //--> Untuk entity dan objek
     public Player player = new Player(this,keyH);
-    public Item obj[] = new Item[10]; 
+    public Item[] item = new Item[10]; 
     public Entity npc[] = new Entity[10];
     
     //--> Untuk game state
@@ -153,9 +153,9 @@ public class GamePanel extends JPanel implements Runnable{
             //--> (Tile) pastikan kita draw tile dulu lalu player
             tileM.draw(g2);
             //--> (Object)
-            for(int i=0; i<obj.length; i++){  
-                if(obj[i] != null){
-                    obj[i].draw(g2, this);
+            for(int i=0; i<item.length; i++){  
+                if(item[i] != null){
+                    item[i].draw(g2, this);
                 }
             }
 

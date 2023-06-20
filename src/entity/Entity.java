@@ -18,31 +18,37 @@ import javax.imageio.ImageIO;
  */
 public class Entity {
     GamePanel gp;
-    public int worldX, worldY;
-    public int speed;
+    int worldX, worldY;
+    int speed;
     
-    public BufferedImage[] up = new BufferedImage[3];
-    public BufferedImage[] down = new BufferedImage[3];
-    public BufferedImage[] left = new BufferedImage[3];
-    public BufferedImage[] right = new BufferedImage[3];
-    public String direction;
+    BufferedImage[] up = new BufferedImage[3];
+    BufferedImage[] down = new BufferedImage[3];
+    BufferedImage[] left = new BufferedImage[3];
+    BufferedImage[] right = new BufferedImage[3];
+    String direction;
     
-    public int spriteCounter = 0;
-    public int spriteNum = 1;
+    int spriteCounter = 0;
+    int spriteNum = 1;
     
     //--> Untuk kelas ini kita dapat membuat persegi panjang yg tak terlihat
-    public Rectangle solidArea = new Rectangle(0,0,48,48); 
-    public int solidAreaDefaultX, solidAreaDefaultY;
-    public boolean collisionOn = false;
-    public int actionLockCounter = 0;
+    Rectangle solidArea = new Rectangle(0,0,48,48); 
+    int solidAreaDefaultX, solidAreaDefaultY;
+    boolean collisionOn = false;
+    int actionLockCounter = 0;
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
     
     //--> Untuk status karakter
-    public int maxLife;
-    public int life;
+    int maxLife;
+    int life;
     
 
+    public Entity(GamePanel gp, int worldX, int worldY){
+        this(gp);
+        this.worldX = worldX * gp.tileSize;
+        this.worldY = worldY * gp.tileSize;
+    }
+    
     public Entity(GamePanel gp){
         this.gp = gp;
     }
@@ -153,4 +159,46 @@ public class Entity {
             }
         return null;
     }
+
+    public int getWorldX() {
+        return worldX;
+    }
+
+    public int getWorldY() {
+        return worldY;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public Rectangle getSolidArea() {
+        return solidArea;
+    }
+
+    public boolean isCollisionOn() {
+        return collisionOn;
+    }
+
+    public int getLife() {
+        return life;
+    }
+
+    public int getMaxLife() {
+        return maxLife;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setCollisionOn(boolean collisionOn) {
+        this.collisionOn = collisionOn;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
+    
+    
 }
