@@ -29,6 +29,7 @@ public final class Player extends Entity {
 
     // untuk menunjukkan berapa kunci yg dimiliki pemain saat ini
     public int keyCount = 0;
+    public int chestCount = 0;
     int standCounter = 0;
 
     //Constructor Player
@@ -93,7 +94,7 @@ public final class Player extends Entity {
             gp.cChecker.checkTile(this);
 
             //--> Untuk memeriksa tabrakan pada objek
-            int objIndex = gp.cChecker.checkObject(this, true);
+            int objIndex = gp.cChecker.checkItem(this, true);
             pickUpObject(objIndex);
 
             //--> Untuk pengecekan tabrakan NPC
@@ -175,8 +176,11 @@ public final class Player extends Entity {
                     gp.PlaySE(i);
                     if (keyCount > 0) {
                         gp.item[i] = null;
-                        gp.ui.gameFinished = true;
                         keyCount--;
+                        chestCount++;
+                        if (chestCount == 2) {
+                            gp.ui.gameFinished = true;
+                        }
                     } else {
                         gp.ui.showMessage("Kamu perlu kunci untuk membukanya!");
                     }

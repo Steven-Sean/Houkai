@@ -70,7 +70,7 @@ public class CollisionChecker {
         }
     }
 
-    public int checkObject(Entity entity, boolean player) {
+    public int checkItem(Entity entity, boolean player) {
         int index = 999;
 
         for (int i = 0; i < gp.item.length; i++) {

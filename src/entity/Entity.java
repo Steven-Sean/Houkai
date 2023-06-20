@@ -84,7 +84,7 @@ public class Entity {
         setAction();
         collisionOn = false;
         gp.cChecker.checkTile(this);
-        gp.cChecker.checkObject(this, false);
+        gp.cChecker.checkItem(this, false);
         gp.cChecker.checkPlayer(this);
 
         //--> untuk pengecekan jika Collision == false maka player dapat gerak dan sebaliknya
