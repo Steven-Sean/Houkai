@@ -14,11 +14,8 @@ import javax.imageio.ImageIO;
  */
 public class Door extends Item {
 
-    GamePanel gp;
-
     public Door(GamePanel gp, int worldX, int worldY) {
         super(gp, worldX, worldY);
-        this.gp = gp;
         name = "door";
         try {
             image[0] = ImageIO.read(getClass().getResourceAsStream("/tiles/door.png"));

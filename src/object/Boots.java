@@ -14,11 +14,8 @@ import javax.imageio.ImageIO;
  */
 public class Boots extends Item {
 
-    GamePanel gp;
-
     public Boots(GamePanel gp, int worldX, int worldY) {
         super(gp, worldX, worldY);
-        this.gp = gp;
         name = "boots";
         try {
             image[0] = ImageIO.read(getClass().getResourceAsStream("/tiles/food.png"));

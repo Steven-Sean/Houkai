@@ -58,14 +58,14 @@ public class EventHandler {
 
     public void damagePit(int gameState) {
         gp.gameState = gameState;
-        gp.ui.currentDialogue = "You fall into a pit!";
+        gp.houkaiUI.currentDialogue = "You fall into a pit!";
         gp.player.setLife(gp.player.getLife() - 1);
     }
 
     public void healingPool(int gameState) {
         if (gp.keyH.enterPressed == true) {
             gp.gameState = gameState;
-            gp.ui.currentDialogue = " You Drink The Water. \nYour life has been recorvered.";
+            gp.houkaiUI.currentDialogue = " You Drink The Water. \nYour life has been recorvered.";
             gp.player.setLife(gp.player.getMaxLife());
         }
 

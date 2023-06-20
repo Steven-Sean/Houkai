@@ -45,7 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
     Sound se = new Sound();    //Sound Effect
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
-    public UI ui = new UI(this);
+    public UI houkaiUI = new UI(this);
     public EventHandler eHandler = new EventHandler();
     EnvironmentManager eManager = new EnvironmentManager(this);
     Thread gameThread;
@@ -123,9 +123,9 @@ public class GamePanel extends JPanel implements Runnable {
             //(Player)
             player.update();
             //(NPC)
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null) {
-                    npc[i].update();
+            for (Entity npc1 : npc) {
+                if (npc1 != null) {
+                    npc1.update();
                 }
             }
         }
@@ -134,6 +134,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         //--> Untuk mengonversi Graphics ke class graphics 2D
@@ -148,21 +149,21 @@ public class GamePanel extends JPanel implements Runnable {
         }
         // --> TITLE SCREEN
         if (gameState == titleState) {
-            ui.draw(g2);
+            houkaiUI.draw(g2);
         } else {
             //--> (Tile) pastikan kita draw tile dulu lalu player
             tileM.draw(g2);
             //--> (Object)
-            for (int i = 0; i < item.length; i++) {
-                if (item[i] != null) {
-                    item[i].draw(g2, this);
+            for (Item item1 : item) {
+                if (item1 != null) {
+                    item1.draw(g2, this);
                 }
             }
 
             //--> (NPC)
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null) {
-                    npc[i].draw(g2);
+            for (Entity npc1 : npc) {
+                if (npc1 != null) {
+                    npc1.draw(g2);
                 }
             }
 
@@ -173,7 +174,7 @@ public class GamePanel extends JPanel implements Runnable {
             eManager.draw(g2);
 
             //--> (UI)
-            ui.draw(g2);
+            houkaiUI.draw(g2);
 
         }
 

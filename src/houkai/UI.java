@@ -23,7 +23,7 @@ public class UI {
     GamePanel gp;
     Graphics2D g2;
     Font arial_40, arial_80B;
-    BufferedImage keyImage, heart_full, heart_half, heart_blank;
+    BufferedImage heart_full, heart_half, heart_blank;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
@@ -41,7 +41,7 @@ public class UI {
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.PLAIN, 80);
         Key key = new Key(gp, 0, 0);
-        keyImage = key.getFirstImage();
+        key.getFirstImage();
 
         //--> Untuk create HUB object
         Item heart = new Heart(gp, 0, 0);

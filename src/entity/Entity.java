@@ -60,7 +60,7 @@ public class Entity {
         if (dialogues[dialogueIndex] == null) {
             dialogueIndex = 0;
         }
-        gp.ui.currentDialogue = dialogues[dialogueIndex];
+        gp.houkaiUI.currentDialogue = dialogues[dialogueIndex];
         dialogueIndex++;
 
         switch (gp.player.direction) {

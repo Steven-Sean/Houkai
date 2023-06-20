@@ -40,6 +40,7 @@ public final class Enemy extends Entity {
     }
 
     //--> Untuk mengatur pergerakan npc secara acak
+    @Override
     public void setAction() {
         actionLockCounter++;
 
@@ -63,6 +64,7 @@ public final class Enemy extends Entity {
         }
     }
 
+    @Override
     public void speak() {
         //--> Untuk melakukan hal khusus karakter
         super.speak();

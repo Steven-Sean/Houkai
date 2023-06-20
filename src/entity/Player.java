@@ -155,22 +155,22 @@ public final class Player extends Entity {
                     keyCount++;
                     gp.item[i] = null;
                     //--> Untuk mengetahui 
-                    gp.ui.showMessage("Anda mendapatkan kunci! ");
+                    gp.houkaiUI.showMessage("Anda mendapatkan kunci! ");
                     break;
                 case "door":
                     if (keyCount > 0) {
                         gp.item[i] = null;
                         keyCount--;
-                        gp.ui.showMessage("Pintu terbuka!");
+                        gp.houkaiUI.showMessage("Pintu terbuka!");
                     } else {
-                        gp.ui.showMessage("Kamu perlu kunci untuk membukanya!");
+                        gp.houkaiUI.showMessage("Kamu perlu kunci untuk membukanya!");
                     }
                     break;
                 case "boots":
                     //--> Untuk menambah kecepatan player
                     speed += 1;
                     gp.item[i] = null;
-                    gp.ui.showMessage("Speed up!");
+                    gp.houkaiUI.showMessage("Speed up!");
                     break;
                 case "chest":
                     gp.StopMusic();
@@ -180,10 +180,10 @@ public final class Player extends Entity {
                         keyCount--;
                         chestCount++;
                         if (chestCount == 2) {
-                            gp.ui.gameFinished = true;
+                            gp.houkaiUI.gameFinished = true;
                         }
                     } else {
-                        gp.ui.showMessage("Kamu perlu kunci untuk membukanya!");
+                        gp.houkaiUI.showMessage("Kamu perlu kunci untuk membukanya!");
                     }
                     break;
             }
