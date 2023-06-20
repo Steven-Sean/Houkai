@@ -31,8 +31,7 @@ public class Entity {
     int spriteNum = 1;
     
     //--> Untuk kelas ini kita dapat membuat persegi panjang yg tak terlihat
-    Rectangle solidArea = new Rectangle(0,0,48,48); 
-    int solidAreaDefaultX, solidAreaDefaultY;
+    Rectangle solidArea = new Rectangle(0,0,48,48);
     boolean collisionOn = false;
     int actionLockCounter = 0;
     String dialogues[] = new String[20];
