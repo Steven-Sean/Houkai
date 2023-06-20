@@ -18,8 +18,8 @@ public class Boots extends Item {
         this.gp = gp;
         name = "boots";
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/tiles/food.png"));
-            uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+            image[0] = ImageIO.read(getClass().getResourceAsStream("/tiles/food.png"));
+            uTool.scaleImage(image[0], gp.tileSize, gp.tileSize);
         }catch(IOException e){
             e.printStackTrace();
         }

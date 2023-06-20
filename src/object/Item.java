@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
  * @author TOSHIBA
  */
 public class Item { // ini jadi class induk dari segala segala class objek
-    public BufferedImage image, image2, image3;
+    public BufferedImage[] image = new BufferedImage[3];
     public String name;
     public boolean collision = false ;
     public int worldX, worldY;
@@ -35,7 +35,7 @@ public class Item { // ini jadi class induk dari segala segala class objek
             worldY - gp.tileSize < gp.player.getWorldY() + gp.player.screenY){
                 
             //--> Untuk Mencetak Gambar Map 
-            g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(image[0], screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
     }
 }

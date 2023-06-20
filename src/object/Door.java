@@ -18,8 +18,8 @@ public class Door extends Item {
         this.gp = gp;  
         name = "door";
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/tiles/door.png"));
-            uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+            image[0] = ImageIO.read(getClass().getResourceAsStream("/tiles/door.png"));
+            uTool.scaleImage(image[0], gp.tileSize, gp.tileSize);
         }catch(IOException e){
             e.printStackTrace();
         }

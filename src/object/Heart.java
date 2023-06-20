@@ -19,12 +19,12 @@ public class Heart extends Item {
         this.gp = gp;
         name = "heart";
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/tiles/heart_full.png"));
-            image2 = ImageIO.read(getClass().getResourceAsStream("/tiles/heart_half.png"));
-            image3 = ImageIO.read(getClass().getResourceAsStream("/tiles/heart_blank.png"));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-            image2 = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-            image3 = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+            image[0] = ImageIO.read(getClass().getResourceAsStream("/tiles/heart_full.png"));
+            image[1] = ImageIO.read(getClass().getResourceAsStream("/tiles/heart_half.png"));
+            image[2] = ImageIO.read(getClass().getResourceAsStream("/tiles/heart_blank.png"));
+            image[0] = uTool.scaleImage(image[0], gp.tileSize, gp.tileSize);
+            image[1] = uTool.scaleImage(image[1], gp.tileSize, gp.tileSize);
+            image[2] = uTool.scaleImage(image[2], gp.tileSize, gp.tileSize);
         }catch(IOException e){
             e.printStackTrace();
         }

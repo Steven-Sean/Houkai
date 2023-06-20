@@ -18,8 +18,8 @@ public class Key extends Item { // class ini untuk memperluas superobject dan ko
         this.gp = gp;
         name = "key";
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/tiles/key.png")); // untuk memuat gambar
-            uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+            image[0] = ImageIO.read(getClass().getResourceAsStream("/tiles/key.png")); // untuk memuat gambar
+            uTool.scaleImage(image[0], gp.tileSize, gp.tileSize);
         }catch(IOException e){
             e.printStackTrace();
         }

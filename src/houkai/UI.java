@@ -40,13 +40,13 @@ public class UI {
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.PLAIN, 80);
         Key key = new Key(gp);
-        keyImage = key.image;
+        keyImage = key.image[0];
         
         //--> Untuk create HUB object
         Item heart = new Heart(gp); 
-        heart_full = heart.image;
-        heart_half = heart.image2;
-        heart_blank = heart.image3;
+        heart_full = heart.image[0];
+        heart_half = heart.image[1];
+        heart_blank = heart.image[2];
     }
     
     public void showMessage(String text){
