@@ -12,10 +12,10 @@ import javax.imageio.ImageIO;
  *
  * @author AsuS
  */
-public class OBJ_heart extends superObject { 
+public class Heart extends Item { 
     GamePanel gp;
     
-    public OBJ_heart(GamePanel gp){   
+    public Heart(GamePanel gp){   
         this.gp = gp;
         name = "heart";
         try {

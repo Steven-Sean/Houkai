@@ -12,9 +12,9 @@ import javax.imageio.ImageIO;
  *
  * @author TOSHIBA
  */
-public class OBJ_chest extends superObject {
+public class Chest extends Item {
     GamePanel gp;
-      public OBJ_chest(GamePanel gp){
+      public Chest(GamePanel gp){
         this.gp = gp;
         name = "chest";
         try {

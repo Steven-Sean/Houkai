@@ -10,18 +10,19 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author AsuS
+ * @author TOSHIBA
  */
-public class OBJ_boots extends superObject {
+public class Door extends Item {
     GamePanel gp;
-    public OBJ_boots(GamePanel gp){        
-        this.gp = gp;
-        name = "boots";
+    public Door(GamePanel gp){
+        this.gp = gp;  
+        name = "door";
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/tiles/food.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/tiles/door.png"));
             uTool.scaleImage(image, gp.tileSize, gp.tileSize);
         }catch(IOException e){
             e.printStackTrace();
         }
+        collision = true;
     }
 }

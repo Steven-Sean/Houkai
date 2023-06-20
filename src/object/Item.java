@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
  *
  * @author TOSHIBA
  */
-public class superObject { // ini jadi class induk dari segala segala class objek
+public class Item { // ini jadi class induk dari segala segala class objek
     public BufferedImage image, image2, image3;
     public String name;
     public boolean collision = false ;

@@ -10,9 +10,9 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
-import object.OBJ_heart;
-import object.OBJ_key;
-import object.superObject;
+import object.Heart;
+import object.Key;
+import object.Item;
 
 /**
  *
@@ -39,11 +39,11 @@ public class UI {
         //--> Font 
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.PLAIN, 80);
-        OBJ_key key = new OBJ_key(gp);
+        Key key = new Key(gp);
         keyImage = key.image;
         
         //--> Untuk create HUB object
-        superObject heart = new OBJ_heart(gp); 
+        Item heart = new Heart(gp); 
         heart_full = heart.image;
         heart_half = heart.image2;
         heart_blank = heart.image3;

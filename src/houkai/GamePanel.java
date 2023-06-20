@@ -13,7 +13,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
-import object.superObject;
+import object.Item;
 
 /**
  *
@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     //--> Untuk entity dan objek
     public Player player = new Player(this,keyH);
-    public superObject obj[] = new superObject[10]; 
+    public Item obj[] = new Item[10]; 
     public Entity npc[] = new Entity[10];
     
     //--> Untuk game state

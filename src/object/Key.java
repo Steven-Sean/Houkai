@@ -12,9 +12,9 @@ import javax.imageio.ImageIO;
  *
  * @author TOSHIBA
  */
-public class OBJ_key extends superObject { // class ini untuk memperluas superobject dan konstraktor
+public class Key extends Item { // class ini untuk memperluas superobject dan konstraktor
     GamePanel gp;
-    public OBJ_key(GamePanel gp){        
+    public Key(GamePanel gp){        
         this.gp = gp;
         name = "key";
         try {

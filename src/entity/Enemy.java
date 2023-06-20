@@ -11,8 +11,8 @@ import java.util.Random;
  *
  * @author AsuS
  */
-public class npc_1 extends Entity{
-    public npc_1(GamePanel gp){
+public class Enemy extends Entity{
+    public Enemy(GamePanel gp){
         super(gp);
         direction = "down";
         speed = 1;
