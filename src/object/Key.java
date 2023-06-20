@@ -13,18 +13,18 @@ import javax.imageio.ImageIO;
  * @author TOSHIBA
  */
 public class Key extends Item { // class ini untuk memperluas superobject dan konstraktor
+
     GamePanel gp;
-    public Key(GamePanel gp, int worldX, int worldY){ 
+
+    public Key(GamePanel gp, int worldX, int worldY) {
         super(gp, worldX, worldY);
         this.gp = gp;
         name = "key";
         try {
             image[0] = ImageIO.read(getClass().getResourceAsStream("/tiles/key.png")); // untuk memuat gambar
             uTool.scaleImage(image[0], gp.tileSize, gp.tileSize);
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
-    
-

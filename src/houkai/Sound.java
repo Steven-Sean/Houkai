@@ -14,34 +14,37 @@ import javax.sound.sampled.Clip;
  * @author TOSHIBA
  */
 public class Sound {
+
     Clip clip;                    //--> Untuk membuka file audio dan mengimpor
     URL SoundURL[] = new URL[30]; //--> Untuk menyimpan file suara 
-    
+
     public Sound() {
         SoundURL[0] = getClass().getResource("/sounds/mixkit-game-show-intro-943.wav");
         SoundURL[1] = getClass().getResource("/sounds/mixkit-sad-game-over-trombone-471.wav");
     }
-    
-    public void setFile(int i){ // metode 1
+
+    public void setFile(int i) { // metode 1
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(SoundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(ais);
-        } catch (Exception e){
+        } catch (Exception e) {
         }
     }
-    
+
     //--> Untuk memutar suara yg dipanggil
-    public void play(){
+    public void play() {
         clip.start();
     }
+
     //--> Untuk mengeloop suara
-    public void loop(){ 
+    public void loop() {
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
+
     //--> Untuk menghentikan suara
-    public void stop(){
+    public void stop() {
         clip.stop();
     }
-    
+
 }

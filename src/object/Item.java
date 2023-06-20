@@ -15,12 +15,13 @@ import java.awt.image.BufferedImage;
  * @author TOSHIBA
  */
 public class Item { // ini jadi class induk dari segala segala class objek
+
     BufferedImage[] image = new BufferedImage[3];
     String name;
-    boolean collision = false ;
+    boolean collision = false;
     int worldX, worldY;
     //--> agar objek menjadi solid area atau seluruh petak objeknya padat
-    Rectangle solidArea = new Rectangle (0,0,48,48); 
+    Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     UtilityTool uTool = new UtilityTool();
 
     public Item(GamePanel gp, int worldX, int worldY) {
@@ -28,20 +29,20 @@ public class Item { // ini jadi class induk dari segala segala class objek
         this.worldY = worldY * gp.tileSize;
     }
 
-    public void draw(Graphics2D g2, GamePanel gp){ // untuk menggambat
+    public void draw(Graphics2D g2, GamePanel gp) { // untuk menggambat
         int screenX = worldX - gp.player.getWorldX() + gp.player.screenX;
-        int screenY = worldY - gp.player.getWorldY() + gp.player.screenY ;
+        int screenY = worldY - gp.player.getWorldY() + gp.player.screenY;
         //--> berfungsi untuk menggambar tiles disekitar player saja jadi tidak melebihi screen
-        if (worldX + gp.tileSize > gp.player.getWorldX() - gp.player.screenX && 
-            worldX - gp.tileSize < gp.player.getWorldX() + gp.player.screenX &&
-            worldY + gp.tileSize > gp.player.getWorldY() - gp.player.screenY &&
-            worldY - gp.tileSize < gp.player.getWorldY() + gp.player.screenY){
-                
+        if (worldX + gp.tileSize > gp.player.getWorldX() - gp.player.screenX
+                && worldX - gp.tileSize < gp.player.getWorldX() + gp.player.screenX
+                && worldY + gp.tileSize > gp.player.getWorldY() - gp.player.screenY
+                && worldY - gp.tileSize < gp.player.getWorldY() + gp.player.screenY) {
+
             //--> Untuk Mencetak Gambar Map 
             g2.drawImage(image[0], screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
     }
-    
+
     public BufferedImage getFirstImage() {
         return image[0];
     }

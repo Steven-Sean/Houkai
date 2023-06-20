@@ -13,15 +13,17 @@ import javax.imageio.ImageIO;
  * @author AsuS
  */
 public class Boots extends Item {
+
     GamePanel gp;
-    public Boots(GamePanel gp, int worldX, int worldY){     
-        super(gp, worldX, worldY);   
+
+    public Boots(GamePanel gp, int worldX, int worldY) {
+        super(gp, worldX, worldY);
         this.gp = gp;
         name = "boots";
         try {
             image[0] = ImageIO.read(getClass().getResourceAsStream("/tiles/food.png"));
             uTool.scaleImage(image[0], gp.tileSize, gp.tileSize);
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

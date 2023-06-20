@@ -17,52 +17,52 @@ import javax.imageio.ImageIO;
  * @author AsuS
  */
 public class Entity {
+
     GamePanel gp;
     int worldX, worldY;
     int speed;
-    
+
     BufferedImage[] up = new BufferedImage[3];
     BufferedImage[] down = new BufferedImage[3];
     BufferedImage[] left = new BufferedImage[3];
     BufferedImage[] right = new BufferedImage[3];
     String direction;
-    
+
     int spriteCounter = 0;
     int spriteNum = 1;
-    
+
     //--> Untuk kelas ini kita dapat membuat persegi panjang yg tak terlihat
-    Rectangle solidArea = new Rectangle(0,0,48,48);
+    Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     boolean collisionOn = false;
     int actionLockCounter = 0;
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
-    
+
     //--> Untuk status karakter
     int maxLife;
     int life;
-    
 
-    public Entity(GamePanel gp, int worldX, int worldY){
+    public Entity(GamePanel gp, int worldX, int worldY) {
         this(gp);
         this.worldX = worldX * gp.tileSize;
         this.worldY = worldY * gp.tileSize;
     }
-    
-    public Entity(GamePanel gp){
+
+    public Entity(GamePanel gp) {
         this.gp = gp;
     }
-    
-    public void setAction(){
-        
+
+    public void setAction() {
+
     }
-    
-    public void speak(){
-        if(dialogues[dialogueIndex] == null){
+
+    public void speak() {
+        if (dialogues[dialogueIndex] == null) {
             dialogueIndex = 0;
         }
         gp.ui.currentDialogue = dialogues[dialogueIndex];
         dialogueIndex++;
-        
+
         switch (gp.player.direction) {
             case "up":
                 direction = "up";
@@ -76,86 +76,87 @@ public class Entity {
             case "left":
                 direction = "left";
                 break;
-            
+
         }
     }
-    public void update(){
+
+    public void update() {
         setAction();
         collisionOn = false;
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this, false);
         gp.cChecker.checkPlayer(this);
-        
+
         //--> untuk pengecekan jika Collision == false maka player dapat gerak dan sebaliknya
-        if(collisionOn == false){
+        if (collisionOn == false) {
             switch (direction) {
-            case "up":
-                worldY -= speed; //key W
-                break;
-            case "down":
-                worldY += speed; //key S
-                break;
-            case "left":
-                worldX -= speed; //key A
-                break;
-            case "right":
-                worldX += speed; //key D
-                break;
+                case "up":
+                    worldY -= speed; //key W
+                    break;
+                case "down":
+                    worldY += speed; //key S
+                    break;
+                case "left":
+                    worldX -= speed; //key A
+                    break;
+                case "right":
+                    worldX += speed; //key D
+                    break;
             }
         }
         spriteCounter++;
-            
+
         //--> Untuk mengatur kecepatan sprite 
-        if(spriteCounter > 12){
-            if(spriteNum == 1){
+        if (spriteCounter > 12) {
+            if (spriteNum == 1) {
                 spriteNum = 2;
-            }else if(spriteNum == 2){
+            } else if (spriteNum == 2) {
                 spriteNum = 1;
             }
             spriteCounter = 0;
         }
     }
-    
-    public void draw(Graphics2D g2){
+
+    public void draw(Graphics2D g2) {
         BufferedImage image;
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
-        int screenY = worldY - gp.player.worldY + gp.player.screenY ;
+        int screenY = worldY - gp.player.worldY + gp.player.screenY;
         //--> berfungsi untuk menggambar tiles disekitar player saja jadi tidak melebihi screen
-        if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && 
-            worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-            worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-            worldY - gp.tileSize < gp.player.worldY + gp.player.screenY){
-            
+        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX
+                && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
+                && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
+                && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+
             image = getImageByDirection(direction);
             //--> Untuk Mencetak Gambar Map 
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
     }
-    
-    BufferedImage setup(String imagePath){
+
+    BufferedImage setup(String imagePath) {
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
-        
-        try{
-           image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
-           image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        }catch(IOException e){
+
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return image;
     }
-    
+
     public BufferedImage getImageByDirection(String direction) {
-        switch(direction){
+        switch (direction) {
             case "up": //key W
-                return up[spriteNum-1];
+                return up[spriteNum - 1];
             case "down": //Key S
-                return down[spriteNum-1];
+                return down[spriteNum - 1];
             case "left": //Key A
-                return left[spriteNum-1];
+                return left[spriteNum - 1];
             case "right": //Key D
-                return right[spriteNum-1];
-            }
+                return right[spriteNum - 1];
+        }
         return null;
     }
 
@@ -198,6 +199,5 @@ public class Entity {
     public void setLife(int life) {
         this.life = life;
     }
-    
-    
+
 }

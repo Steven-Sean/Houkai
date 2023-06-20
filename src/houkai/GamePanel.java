@@ -19,11 +19,12 @@ import object.Item;
  *
  * @author AsuS
  */
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable {
+
     //--> Untuk screen setting
     final int originalTileSize = 16; //16x16
     final int scale = 3;
-    
+
     public final int tileSize = originalTileSize * scale; //48x48 tile
     public final int maxScreenCol = 26;
     public final int maxScreenRow = 15;
@@ -31,12 +32,12 @@ public class GamePanel extends JPanel implements Runnable{
     public final int screenHeight = tileSize * maxScreenRow; // 720 pixels 
 
     //--> Untuk setting world 
-    public final int maxWorldCol = 50; 
-    public final int maxWorldRow = 50; 
-    
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+
     //--> Untuk setting FPS
     int FPS = 60;
-    
+
     //--> Untuk setting System
     TileManager tileM = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
@@ -47,30 +48,29 @@ public class GamePanel extends JPanel implements Runnable{
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler();
     EnvironmentManager eManager = new EnvironmentManager(this);
-    Thread gameThread; 
-    
+    Thread gameThread;
+
     //--> Untuk entity dan objek
-    public Player player = new Player(this,keyH);
-    public Item[] item = new Item[10]; 
+    public Player player = new Player(this, keyH);
+    public Item[] item = new Item[10];
     public Entity npc[] = new Entity[10];
-    
+
     //--> Untuk game state
     public int gameState;
     public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
     public final int dialogueState = 3;
-    
-    
-    public GamePanel(){
+
+    public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground( new Color(6, 1, 31) ); //--> Untuk background diluar tile
+        this.setBackground(new Color(6, 1, 31)); //--> Untuk background diluar tile
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH); //--> Untuk mengenali inputan
         this.setFocusable(true);
     }
 
-    public void setupGame(){
+    public void setupGame() {
         aSetter.setObject();
         aSetter.setNPC();
         playMusic(0);
@@ -78,29 +78,29 @@ public class GamePanel extends JPanel implements Runnable{
         gameState = titleState;
         eManager.setup();
     }
-    
-    public void startGameThread(){
+
+    public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
 
     @Override
-    public void run(){
+    public void run() {
         //--> Untuk game loop
-        double drawInterval = 1000000000/FPS; //--> Untuk 0.01666 seconds dapat menggambar 60 layar
+        double drawInterval = 1000000000 / FPS; //--> Untuk 0.01666 seconds dapat menggambar 60 layar
         double delta = 0;
         long lastTime = System.nanoTime();
         long currenTime;
         long timer = 0;
         long drawCount = 0;
-        
-        while(gameThread != null){
+
+        while (gameThread != null) {
             currenTime = System.nanoTime(); //--> Untuk 1 miliar nanodetik sama dengan 1 detik
             delta += (currenTime - lastTime) / drawInterval;
             timer += (currenTime - lastTime);
             lastTime = currenTime;
-            
-            if(delta >= 1){
+
+            if (delta >= 1) {
                 // 1. Update: memperbarui informasi seperti posisi karakter
                 update();
                 // 2. Draw: menggambar layar dengan informasi terbaru
@@ -109,59 +109,59 @@ public class GamePanel extends JPanel implements Runnable{
                 drawCount++;
             }
             //--> Untuk pengecekan FPS
-            if(timer <= 1000000000){
+            if (timer <= 1000000000) {
                 System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
             }
         }
     }
-    
+
     //--> Untuk update player
-    public void update(){
-        if (gameState == playState){
+    public void update() {
+        if (gameState == playState) {
             //(Player)
             player.update();
             //(NPC)
-            for(int i=0; i<npc.length; i++){
-                if(npc[i] != null){
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
                     npc[i].update();
                 }
             }
         }
-        if (gameState == pauseState){
+        if (gameState == pauseState) {
             // kita tidak memperbarui informasi pemain saat permainan
         }
     }
-    
-    public void paintComponent(Graphics g){
+
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         //--> Untuk mengonversi Graphics ke class graphics 2D
         //--> Untuk fungsi Graphics2D class extends Graphics class untuk memberikan kontrol yang lebih canggih atas
         //    geometri, transformasi koordinat, manajemen warna, dan tata letak teks.
-        Graphics2D g2 = (Graphics2D)g;
-        
+        Graphics2D g2 = (Graphics2D) g;
+
         //--> Untuk Debug
         long drawStart = 0;
-        if(keyH.checkDrawTime == true){
+        if (keyH.checkDrawTime == true) {
             drawStart = System.nanoTime();
         }
         // --> TITLE SCREEN
-        if (gameState == titleState){
+        if (gameState == titleState) {
             ui.draw(g2);
-        }else {
+        } else {
             //--> (Tile) pastikan kita draw tile dulu lalu player
             tileM.draw(g2);
             //--> (Object)
-            for(int i=0; i<item.length; i++){  
-                if(item[i] != null){
+            for (int i = 0; i < item.length; i++) {
+                if (item[i] != null) {
                     item[i].draw(g2, this);
                 }
             }
 
             //--> (NPC)
-            for(int i=0; i<npc.length; i++){
-                if(npc[i] != null){
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
                     npc[i].draw(g2);
                 }
             }
@@ -171,37 +171,38 @@ public class GamePanel extends JPanel implements Runnable{
 
             //--> (Enviroment)
             eManager.draw(g2);
-            
+
             //--> (UI)
             ui.draw(g2);
-            
+
         }
-                 
+
         //--> Untuk Debug_2
-        if(keyH.checkDrawTime == true){
+        if (keyH.checkDrawTime == true) {
             long drawEnd = System.nanoTime();
             long passed = drawEnd - drawStart;
             g2.setColor(Color.white);
             g2.drawString("Draw Time: " + passed, 10, 400);
             System.out.println("Draw Time: " + passed);
         }
-        
+
         g2.dispose();
     }
-    
+
     //--> Untuk memutar musik
-    public void playMusic(int i){ 
+    public void playMusic(int i) {
         music.setFile(i);
         music.play();
         music.loop();
     }
+
     //--> Untuk memberhentikan musik
-    public void StopMusic(){      
+    public void StopMusic() {
         music.stop();
     }
-    
+
     //--> Untuk sound efect dan tidak perlu loop karna cmn 1 kali
-    public void PlaySE(int i){ 
+    public void PlaySE(int i) {
         //--> Untuk Se ini digunakan penghenti music agar memainkan Effect  
         se.setFile(i);
         se.play();

@@ -12,13 +12,14 @@ import java.awt.image.BufferedImage;
  * @author AsuS
  */
 public class UtilityTool {
-    public BufferedImage scaleImage(BufferedImage original, int width, int height){
-        
+
+    public BufferedImage scaleImage(BufferedImage original, int width, int height) {
+
         BufferedImage scaledImage = new BufferedImage(width, height, original.getType());
         Graphics2D g2 = scaledImage.createGraphics(); // menggambar grapics2D yang dapat digunakan untuk menggambar BufferedImage
-        g2.drawImage(original,0,0,width,height,null); // untuk menggambar gambar yg diskalakan
+        g2.drawImage(original, 0, 0, width, height, null); // untuk menggambar gambar yg diskalakan
         g2.dispose();
-        
-        return scaledImage; 
+
+        return scaledImage;
     }
 }
