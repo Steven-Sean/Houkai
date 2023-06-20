@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;        //--> Untuk membaca gambar dari file atau m
  *
  * @author AsuS
  */
-public class Player extends Entity {
+public final class Player extends Entity {
     //GamePanel gp;
     KeyHandler keyH;
     

@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author AsuS
  */
-public class Enemy extends Entity{
+public final class Enemy extends Entity{
     public Enemy(GamePanel gp){
         super(gp);
         direction = "down";
