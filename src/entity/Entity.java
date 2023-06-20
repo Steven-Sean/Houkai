@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
  *
  * @author AsuS
  */
-public class Entity {
+public abstract class Entity {
 
     GamePanel gp;
     int worldX, worldY;

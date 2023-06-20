@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
  *
  * @author TOSHIBA
  */
-public class Item { // ini jadi class induk dari segala segala class objek
+public abstract class Item { // ini jadi class induk dari segala segala class objek
 
     BufferedImage[] image = new BufferedImage[3];
     String name;
